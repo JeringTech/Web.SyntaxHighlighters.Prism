@@ -1,0 +1,30 @@
+- Integrate MSBuild.Yarn
+    - install packages on first build
+- SyntaxHighlighterExtensions
+    - Provide all the same node services options that node services provides
+- Highlighter
+    - can be used without di
+        - private static nodeservices instance
+    - consider exposing options
+- Support for highlight js, code color
+- packaging
+    - Should package contain node_modules?
+        - can ship with package.json and some build target that installs js after build
+        - alternatively, can just ship modules
+            - ensure that if modules are included in nuget package, they are copied when dll is copied
+- blog post on Running JS from CSharp
+    - use https://github.com/aspnet/JavaScriptServices/tree/dev/src/Microsoft.AspNetCore.NodeServices
+        - why not https://github.com/tjanczuk/edge?
+            - how it works
+                - node is a c++ dll
+                - simply pinvokes node
+                - this makes it more performant, especially for object marshalling
+            - however does not support .net core
+            - moreover, nodeServices is an abstraction over node usage
+                - by default uses json and http for object marshalling
+                - intends to add edge.js when it supports .net core
+        - exception handling
+    - use MSBuild.Yarn
+        - easier to clone and get started with source code
+    - packaging
+        - append name and copy node_modules and interop to output
