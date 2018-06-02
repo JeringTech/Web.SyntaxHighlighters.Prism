@@ -1,17 +1,31 @@
+https://github.com/PrismJS/prism/issues/1171
+https://github.com/jsdom/jsdom
+
+1. IsValidLanguageAlias(string languageAlias, Engine engine)
+    - create languageAliases with the above function
+    - create languageAliases factory
+            - supply Dictionary<EngineType, lazy<string[]> to languageAliases
+
+
+
+https://github.com/PrismJS/prism/blob/master/components.json
+
+
+Requirements
+- test hljs and code color
+- flesh out engine options
+- test options overriding
+    - node services
+    - syntax highlighter
+
+
 - Integrate MSBuild.Yarn
-    - install packages on first build
-- SyntaxHighlighterExtensions
-    - Provide all the same node services options that node services provides
-- Highlighter
-    - can be used without di
-        - private static nodeservices instance
-    - consider exposing options
-- Support for highlight js, code color
+    - install npm packages on first build or if they dissapear
 - packaging
-    - Should package contain node_modules?
-        - can ship with package.json and some build target that installs js after build
-        - alternatively, can just ship modules
-            - ensure that if modules are included in nuget package, they are copied when dll is copied
+    - name for wrapper folder (something unique)
+- write readme
+- publish on nuget
+
 - blog post on Running JS from CSharp
     - use https://github.com/aspnet/JavaScriptServices/tree/dev/src/Microsoft.AspNetCore.NodeServices
         - why not https://github.com/tjanczuk/edge?

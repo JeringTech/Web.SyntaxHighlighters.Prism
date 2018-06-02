@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <CodeAnalysisRuleSet>../JeremyTCD.WebUtils.SyntaxHighlighter.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>../JeremyTCD.WebUtils.SyntaxHighlighters.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\JeremyTCD.WebUtils.SyntaxHighlighter\JeremyTCD.WebUtils.SyntaxHighlighter.csproj" />
+      <ProjectReference Include="..\JeremyTCD.WebUtils.SyntaxHighlighters.Prism\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.csproj" />
     </ItemGroup>
 
 </Project>

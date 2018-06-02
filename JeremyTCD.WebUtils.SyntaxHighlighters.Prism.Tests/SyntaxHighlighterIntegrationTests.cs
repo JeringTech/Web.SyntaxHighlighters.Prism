@@ -4,21 +4,21 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace JeremyTCD.WebUtils.SyntaxHighlighter.Tests
+namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
 {
-    public class HighlighterIntegrationTests : IDisposable
+    public class SyntaxHighlighterIntegrationTests : IDisposable
     {
         private ServiceProvider _serviceProvider;
 
         [Theory]
         [MemberData(nameof(Highlight_HighlightsCode_Data))]
-        public void Highlight_HighlightsCode(string dummyCode, string dummyLanguage, string expectedResult)
+        public void Highlight_HighlightsCode(string dummyCode, string dummyLanguage, string expectedResult, IEngineOptions engineOptions)
         {
             // Arrange
-            IHighlighter highlighter = CreateHighlighter();
+            ISyntaxHighlighter highlighter = CreateHighlighter();
 
             // Act
-            string result = highlighter.Highlight(dummyCode, dummyLanguage).Result;
+            string result = highlighter.Highlight(dummyCode, dummyLanguage, EngineType.Prism, engineOptions).Result;
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -28,6 +28,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighter.Tests
         {
             return new object[][]
             {
+                // javascript
                 new object[]
                 {
                     @"function exampleFunction(arg) {
@@ -38,8 +39,11 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighter.Tests
                     @"<span class=""token keyword"">function</span> <span class=""token function"">exampleFunction</span><span class=""token punctuation"">(</span>arg<span class=""token punctuation"">)</span> <span class=""token punctuation"">{</span>
     <span class=""token comment"">// This function is pointless</span>
     <span class=""token keyword"">return</span> arg <span class=""token operator"">+</span> <span class=""token string"">'dummyString'</span><span class=""token punctuation"">;</span>
-<span class=""token punctuation"">}</span>"
+<span class=""token punctuation"">}</span>",
+                    null
                 },
+
+                // csharp
                 new object[]
                 {
                     @"public string ExampleFunction(string arg)
@@ -52,25 +56,13 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighter.Tests
 <span class=""token punctuation"">{</span>
     <span class=""token comment"">// This function is pointless</span>
     <span class=""token keyword"">return</span> arg <span class=""token operator"">+</span> <span class=""token string"">""dummyString""</span><span class=""token punctuation"">;</span>
-<span class=""token punctuation"">}</span>"
+<span class=""token punctuation"">}</span>",
+                    null
                 }
             };
         }
 
-        [Fact]
-        public void Highlight_ThrowsExceptionIfLanguageDoesNotExist()
-        {
-            // Arrange
-            const string dummyCode = "dummyCode";
-            const string dummyLanguage = "dummyLanguage";
-            IHighlighter highlighter = CreateHighlighter();
-
-            // Act and assert
-            AggregateException result = Assert.Throws<AggregateException>(() => highlighter.Highlight(dummyCode, dummyLanguage).Result);
-            Assert.IsType<NodeInvocationException>(result.InnerException);
-        }
-
-        private IHighlighter CreateHighlighter()
+        private ISyntaxHighlighter CreateHighlighter()
         {
             // Since a new container is created for each test, a new INodeServices instance is created as well.
             // This means that a new node process is started and then disposed of for each test. 
@@ -80,7 +72,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighter.Tests
 
             _serviceProvider = services.BuildServiceProvider();
 
-            return _serviceProvider.GetRequiredService<IHighlighter>();
+            return _serviceProvider.GetRequiredService<ISyntaxHighlighter>();
         }
 
         public void Dispose()
