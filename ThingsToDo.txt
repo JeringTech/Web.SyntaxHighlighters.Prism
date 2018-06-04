@@ -21,6 +21,7 @@ Requirements
 
 - Integrate MSBuild.Yarn
     - install npm packages on first build or if they dissapear
+    - how does nodeservices project install js?
 - packaging
     - name for wrapper folder (something unique)
 - write readme
@@ -38,6 +39,9 @@ Requirements
                 - by default uses json and http for object marshalling
                 - intends to add edge.js when it supports .net core
         - exception handling
+    - debugging
+        - chrome://inspect
+        - https://github.com/aspnet/JavaScriptServices/tree/dev/src/Microsoft.AspNetCore.SpaServices#debugging-your-javascripttypescript-code-when-it-runs-on-the-server
     - use MSBuild.Yarn
         - easier to clone and get started with source code
     - packaging

@@ -3,8 +3,7 @@ var PrismLanguageLoader = require('prismjs/components/index.js');
 var components = require('prismjs/components.js');
 
 module.exports = {
-
-    highlight: function (callback, code, language, options) {
+    highlight: function (callback, code, language) {
         // Node caches modules, so its fine if the same language is required more than once - https://nodejs.org/api/modules.html#modules_caching
         PrismLanguageLoader(language);
 
@@ -12,11 +11,10 @@ module.exports = {
 
         callback(null /* errors */, result);
     },
-
     getAliases: function (callback) {
         var result = [];
 
-        for (var language in Object.keys(components.languages)) {
+        for (var language of Object.keys(components.languages)) {
             result.push(language);
 
             var aliases = components.languages[language].alias;
@@ -26,12 +24,12 @@ module.exports = {
             if (typeof aliases === 'string') {
                 result.push(aliases);
             } else if (Array.isArray(aliases)) {
-                for (var alias in aliasese) {
+                for (var alias of aliases) {
                     result.push(alias);
                 }
             }
         }
 
-        return result;
+        callback(null /* errors */, result);
     }
-}
+};

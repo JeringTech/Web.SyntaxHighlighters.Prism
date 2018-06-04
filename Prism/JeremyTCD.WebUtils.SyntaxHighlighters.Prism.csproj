@@ -5,20 +5,29 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <CodeAnalysisRuleSet>../JeremyTCD.WebUtils.SyntaxHighlighting.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>../JeremyTCD.WebUtils.SyntaxHighlighters.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="ColorCode.Core" Version="2.0.5" />
         <PackageReference Include="ColorCode.HTML" Version="2.0.5" />
-        <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
         <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" />
         <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Resources/**" CopyToOutputDirectory="PreserveNewest" LinkBase="Resources/" />
+        <!-- TODO: Is this the best way of ensuring that javascript folder has a unique name? -->
+        <Content Include="JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Javascript\**\*" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="package.json" />
+      <Content Include="yarn.lock" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Users\Jeremy\Desktop\LibrariesAndTools\JavaScriptServices\src\Microsoft.AspNetCore.NodeServices\Microsoft.AspNetCore.NodeServices.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -4,7 +4,7 @@ using Xunit;
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
 {
-    public class SyntaxHighlighterUnitTests
+    public class PrismUnitTests
     {
         [Fact]
         public void Highlight_ThrowsInvalidOperationExceptionIfEngineOptionsIsOfTypeColorCodeOptionsButLanguageAliasHasNoCorrespondingColorCodeLanguage()

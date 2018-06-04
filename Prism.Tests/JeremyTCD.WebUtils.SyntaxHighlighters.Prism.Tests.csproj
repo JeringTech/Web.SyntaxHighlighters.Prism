@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\JeremyTCD.WebUtils.SyntaxHighlighters.Prism\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.csproj" />
+      <ProjectReference Include="..\Prism\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.csproj" />
     </ItemGroup>
 
 </Project>
