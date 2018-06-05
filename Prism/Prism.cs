@@ -45,7 +45,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
                 throw new ArgumentException($"\"{languageAlias}\" is not a valid Prism language alias. Visit https://prismjs.com/index.html#languages-list for a list of language aliases.");
             }
 
-            return await _nodeServices.InvokeAsync<string>(INTEROP_FILE, "highlight", code, languageAlias).ConfigureAwait(false);
+            return await _nodeServices.InvokeExportAsync<string>(INTEROP_FILE, "highlight", code, languageAlias).ConfigureAwait(false);
         }
 
         /// <summary>
