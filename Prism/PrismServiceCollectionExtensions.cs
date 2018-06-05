@@ -10,17 +10,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
             services.TryAddSingleton<IPrism, Prism>();
 
             // Third party services
-#if DEBUG
-            services.AddNodeServices(options =>
-            {
-                options.LaunchWithDebugging = true;
-                options.DebuggingPort = 9229;
-                options.InvocationTimeoutMilliseconds = 9999999;
-            });
-#else
             services.AddNodeServices();
-#endif
-
 
             return services;
         }
