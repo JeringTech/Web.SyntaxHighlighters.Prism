@@ -55,6 +55,11 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         /// <param name="languageAlias"></param>
         public virtual async Task<bool> IsValidLanguageAlias(string languageAlias)
         {
+            if (string.IsNullOrWhiteSpace(languageAlias))
+            {
+                return false;
+            }
+
             string[] aliases = await _aliases.Value.ConfigureAwait(false);
 
             return aliases.Contains(languageAlias);
