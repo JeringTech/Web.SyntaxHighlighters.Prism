@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.NodeServices.HostingModels;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Xunit;
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
@@ -23,7 +23,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             // Assert
             Assert.Equal(expectedResult, result);
         }
-        
+
         public static IEnumerable<object[]> Highlight_HighlightsCode_Data()
         {
             return new object[][]
@@ -60,13 +60,61 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             };
         }
 
+        [Theory]
+        [MemberData(nameof(IsValidLanguageAlias_ChecksIfLanguageAliasIsValid_Data))]
+        public void IsValidLanguageAlias_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
+        {
+            // Arrange
+            IPrism prism = CreatePrism();
+
+            // Act
+            bool result = prism.IsValidLanguageAlias(dummyLanguageAlias).Result;
+
+            // Assert
+            Assert.Equal(expectedResult, result);
+        }
+
+        public static IEnumerable<object[]> IsValidLanguageAlias_ChecksIfLanguageAliasIsValid_Data()
+        {
+            return new object[][]
+            {
+                // Alias
+                new object[]
+                {
+                    "html", true
+                },
+
+                // Actual language
+                new object[]
+                {
+                    "css", true
+                },
+
+                // Non existent language
+                new object[]
+                {
+                    "non-existent-language", false
+                }
+            };
+        }
+
         private IPrism CreatePrism()
         {
             // Since a new container is created for each test, a new INodeServices instance is created as well.
             // This means that a new node process is started and then disposed of for each test. 
             // It is cleaner to do things this way, but reconsider if performance becomes an issue.
             var services = new ServiceCollection();
+
             services.AddPrism();
+            if (Debugger.IsAttached)
+            {
+                // Override INodeServices service registered by AddPrism to enable debugging
+                services.AddNodeServices(options =>
+                {
+                    options.NodeOptions = "--inspect-brk";
+                    options.InvocationTimeoutMilliseconds = 99999999;
+                });
+            }
 
             _serviceProvider = services.BuildServiceProvider();
 
