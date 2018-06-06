@@ -44,20 +44,15 @@
         </EmbeddedResource>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Node\bin\" />
-    </ItemGroup>
-
     <!-- Properties for YarnBuild -->
     <PropertyGroup>
         <YarnWorkingDir>./Node</YarnWorkingDir>
-        <YarnBuildCommand>run webpack</YarnBuildCommand>
-        <!-- TODO if release, minify -->
+        <YarnBuildCommand>run build</YarnBuildCommand>
     </PropertyGroup>
 
-    <!-- If node_modules does not exist in ./Node, install modules -->
-    <Target Name="YarnInstall" BeforeTargets="YarnBuild" Condition=" ! Exists('./Node/node_modules/')">
-        <Message Text="Installing node_modules since it does not exist..." Importance="High" />
+    <!-- Run yarn install in case package.json has changed and user isn't using VS or has automatic npm package restore disabled. 
+         This is similar to how nuget restore runs for every project on every build. -->
+    <Target Name="YarnInstall" BeforeTargets="YarnBuild">
         <Yarn WorkingDirectory="./Node" Command="install" />
     </Target>
 

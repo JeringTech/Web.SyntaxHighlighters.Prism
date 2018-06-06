@@ -1,12 +1,8 @@
 const Path = require('path');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production', // Automatically enables minification
     target: 'node',
-    resolve: {
-        modules: ["node_modules"],
-        extensions: [ '.js' ]
-    },
     entry: './interop.js',
     output: {
         libraryTarget: 'commonjs',
