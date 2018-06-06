@@ -7,7 +7,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 {
     public class Prism : IPrism, IDisposable
     {
-        private const string INTEROP_FILE = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Javascript/interop.js";
+        internal const string INTEROP_FILE = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Javascript/interop.js";
         private readonly INodeServices _nodeServices;
 
         /// <summary>
@@ -29,10 +29,16 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         /// <param name="code"></param>
         /// <param name="languageAlias">A Prism language alias. Visit https://prismjs.com/index.html#languages-list for a list of language aliases.</param>
         /// <returns>Highlighted <paramref name="code"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="code"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="languageAlias"/> is not a valid Prism language alias.</exception>
         /// <exception cref="AggregateException">Thrown if a Node error occurs. Will contain a <see cref="NodeInvocationException"/> as its inner exception.</exception>
         public virtual async Task<string> Highlight(string code, string languageAlias)
         {
+            if(code == null)
+            {
+                throw new ArgumentException(Strings.Exception_ParameterCannotBeNull, nameof(code));
+            }
+
             if (string.IsNullOrWhiteSpace(code))
             {
                 // Nothing to highlight
@@ -42,7 +48,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
             if (!await IsValidLanguageAlias(languageAlias).ConfigureAwait(false))
             {
                 // languageAlias is invalid
-                throw new ArgumentException($"\"{languageAlias}\" is not a valid Prism language alias. Visit https://prismjs.com/index.html#languages-list for a list of language aliases.");
+                throw new ArgumentException(string.Format(Strings.Exception_InvalidPrismLanguageAlias, languageAlias));
             }
 
             return await _nodeServices.InvokeExportAsync<string>(INTEROP_FILE, "highlight", code, languageAlias).ConfigureAwait(false);
