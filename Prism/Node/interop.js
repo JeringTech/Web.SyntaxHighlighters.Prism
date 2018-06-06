@@ -1,12 +1,13 @@
 ﻿var Prism = require('prismjs');
 var PrismLanguageLoader = require('prismjs/components/index.js');
 var components = require('prismjs/components.js');
+var languageNames = Object.keys(components.languages).filter(languageName => languageName !== 'meta');
+
+// Webpack must include all languages
+PrismLanguageLoader(languageNames);
 
 module.exports = {
     highlight: function (callback, code, language) {
-        // Node caches modules, so its fine if the same language is required more than once - https://nodejs.org/api/modules.html#modules_caching
-        PrismLanguageLoader(language);
-
         var result = Prism.highlight(code, Prism.languages[language], language);
 
         callback(null /* errors */, result);
@@ -14,10 +15,10 @@ module.exports = {
     getAliases: function (callback) {
         var result = [];
 
-        for (var language of Object.keys(components.languages)) {
-            result.push(language);
+        for (var languageName of languageNames) {
+            result.push(languageName);
 
-            var aliases = components.languages[language].alias;
+            var aliases = components.languages[languageName].alias;
             if (!aliases) {
                 continue;
             }

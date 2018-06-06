@@ -7,7 +7,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 {
     public class Prism : IPrism, IDisposable
     {
-        internal const string INTEROP_FILE = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Javascript/interop.js";
+        internal const string INTEROP_FILE = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.bundle.js";
         private readonly INodeServices _nodeServices;
 
         /// <summary>

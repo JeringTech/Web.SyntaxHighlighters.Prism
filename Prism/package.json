@@ -1,7 +1,0 @@
-{
-    "name": "syntax-highlighters",
-    "version": "0.0.0",
-    "dependencies": {
-        "prismjs": "^1.14.0"
-    }
-}

@@ -15,35 +15,50 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
         <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" />
         <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" />
+        <PackageReference Include="Yarn.MSBuild" Version="1.5.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <!-- TODO: Is this the best way of ensuring that javascript folder has a unique name? -->
-        <Content Include="JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Javascript\**\*" CopyToOutputDirectory="PreserveNewest" />
+        <Content Include="Node\interop.js" />
+        <Content Include="Node\package.json" />
+        <Content Include="Node\yarn.lock" />
+        <ContentWithTargetPath Include="Node\bin\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.bundle.js" CopyToOutputDirectory="PreserveNewest" TargetPath="%(Filename)%(Extension)" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="package.json" />
-      <Content Include="yarn.lock" />
+        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
     <ItemGroup>
-      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+        <Compile Update="Strings.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Strings.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Strings.resx</DependentUpon>
-      </Compile>
+        <EmbeddedResource Update="Strings.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Strings.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <Folder Include="Node\bin\" />
     </ItemGroup>
+
+    <!-- Properties for YarnBuild -->
+    <PropertyGroup>
+        <YarnWorkingDir>./Node</YarnWorkingDir>
+        <YarnBuildCommand>run webpack</YarnBuildCommand>
+        <!-- TODO if release, minify -->
+    </PropertyGroup>
+
+    <!-- If node_modules does not exist in ./Node, install modules -->
+    <Target Name="YarnInstall" BeforeTargets="YarnBuild" Condition=" ! Exists('./Node/node_modules/')">
+        <Message Text="Installing node_modules since it does not exist..." Importance="High" />
+        <Yarn WorkingDirectory="./Node" Command="install" />
+    </Target>
 
 </Project>
