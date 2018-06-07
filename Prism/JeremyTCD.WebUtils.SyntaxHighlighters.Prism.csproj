@@ -30,11 +30,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Update="Strings.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Strings.resx</DependentUpon>
-        </Compile>
+      <Compile Update="Strings.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Strings.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -47,7 +47,8 @@
     <!-- Properties for YarnBuild -->
     <PropertyGroup>
         <YarnWorkingDir>./Node</YarnWorkingDir>
-        <YarnBuildCommand>run build</YarnBuildCommand>
+        <YarnBuildCommand>run build --mode=debug</YarnBuildCommand>
+        <YarnBuildCommand Condition="'$(Configuration)' == 'Release'">run build --mode=release</YarnBuildCommand>
     </PropertyGroup>
 
     <!-- Run yarn install in case package.json has changed and user isn't using VS or has automatic npm package restore disabled. 

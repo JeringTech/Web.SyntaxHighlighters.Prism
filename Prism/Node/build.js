@@ -2,8 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
-
-// TODO run webpack in production mode when doing a release build so that scripts are minified
+const argv = require('yargs').argv;
 
 let rebuild = true;
 let files = ['interop.js', 'package.json', 'webpack.config.js']; // Build when these files change. Note: could use fs.readdir to recursively find files instead
@@ -20,32 +19,36 @@ for (let file of files) {
     }
 }
 
-if (fs.existsSync('./lastModifiedTime')) {
+if (fs.existsSync('./lastBuildData')) {
     // Get last modified time
-    let lastModifiedTime = parseInt(fs.readFileSync('./lastModifiedTime', 'utf8'));
+    let lastBuildData = JSON.parse(fs.readFileSync('./lastBuildData', 'utf8'));
+    let lastMode = lastBuildData.mode;
+    let lastModifiedTime = lastBuildData.modifiedTime;
 
-    // If lastModifiedTime is NaN, we cannot proceed since the file has been currupted - a rebuild is required
-    if (!isNaN(lastModifiedTime)) {
+    if (lastMode != argv.mode) {
+        console.log(`Build mode has changed, rebuilding bundle.js. Last build mode: ${lastMode}, current build mode: ${argv.mode}.`);
+    } else if (!Number.isInteger(lastModifiedTime)) {
+        console.log(`Last modified time "${lastModifiedTime}" is invalid, rebuilding bundle.js.`);
+    } else if (lastModifiedTime == currentLastModifiedTime) {
         // If last modified date is the same as currentLastModifiedTime, no changes have been made, so no need to rebuild.
-        if (lastModifiedTime == currentLastModifiedTime) {
-            console.log('bundle.js up to date, not running webpack.');
-            rebuild = false;
-        }
+        console.log('bundle.js is up to date.');
+        rebuild = false;
+    } else {
+        console.log('File(s) changed, rebuilding bundle.js.');
     }
+} else {
+    console.log('lastBuildData unavailable, rebuilding bundle.js.');
 }
 
 if (rebuild) {
-    //  - if any have changed
-    //      - if debug build, run webpack in development mode
-    //      - if release build, run webpack in production mode
-    console.log('Running webpack...');
+    console.log('Rebuilding...');
 
-    webpack(webpackConfig, (err, stats) => {
+    webpack(webpackConfig({ mode: argv.mode }), (err, stats) => {
         if (err) {
             console.log(err);
         } else {
-            console.log('Webpack complete.');
-            fs.writeFileSync('./lastModifiedTime', currentLastModifiedTime, { encoding: 'utf8' });
+            console.log('Rebuild complete.');
+            fs.writeFileSync('./lastBuildData', JSON.stringify({ modifiedTime: currentLastModifiedTime, mode: argv.mode }), { encoding: 'utf8' });
         }
     });
 }
