@@ -8,6 +8,7 @@
     "dependencies": {
         "prismjs": "^1.14.0",
         "webpack": "^4.11.1",
-        "webpack-cli": "^3.0.2"
+        "webpack-cli": "^3.0.2",
+        "yargs": "^11.0.0"
     }
 }
