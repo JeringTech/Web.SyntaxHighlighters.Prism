@@ -2,6 +2,16 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <PackageId>JeremyTCD.WebUtils.SyntaxHighlighters.Prism</PackageId>
+        <Authors>JeremyTCD</Authors>
+        <Description>A .Net wrapper for the javascript syntax highlighting library, PrismJs.</Description>
+        <Copyright>© JeremyTCD. All rights reserved.</Copyright>
+        <PackageLicenseUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters/blob/master/License.txt</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters</PackageProjectUrl>
+        <PackageReleaseNotes>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters/blob/master/Changelog.md</PackageReleaseNotes>
+        <PackageTags>web prism js syntax highlighter</PackageTags>
+        <RepositoryUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <PropertyGroup>
