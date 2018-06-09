@@ -12,6 +12,7 @@
         <PackageTags>web prism js syntax highlighter</PackageTags>
         <RepositoryUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+        <IncludeSymbols>true</IncludeSymbols>
     </PropertyGroup>
 
     <PropertyGroup>
