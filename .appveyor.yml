@@ -2,15 +2,21 @@ version: '{build}'
 skip_non_tags: true
 image: Visual Studio 2017
 build_script:
-# dotnet pack does not build test project
 - ps: |
-    dotnet build
     dotnet pack -c release /p:version=$env:APPVEYOR_REPO_TAG_NAME
+test_script:
+- ps: |
+    cd .\src\Prism.Tests
+    dotnet test -l trx -r ./ .\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests.csproj
+    $wc = New-Object 'System.Net.WebClient'
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\*.trx))
 artifacts:
   - path: '**/*.nupkg'
 deploy:
-  - provider: NuGet
-    api_key:
-      secure: oy2nm7yfowq7t657czyqio3hiysipk2elhhfy6mtyol7su
-    skip_symbols: false
-    artifact: /.*\.nupkg/
+  provider: NuGet
+  api_key:
+    secure: YuSNfK09e6bNa8EEC2jAsTZP8b8sHN6BDdhrqbI1hRAoqSAUUre5gH8CaW/85NpF
+  skip_symbols: false
+  artifact: /.*\.nupkg/
+cache:
+    - '%USERPROFILE%/.nuget/packages -> **/.csproj'
