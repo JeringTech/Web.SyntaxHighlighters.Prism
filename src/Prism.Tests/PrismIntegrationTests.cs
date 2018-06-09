@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.NodeServices;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -111,12 +112,28 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
                 // Override INodeServices service registered by AddPrism to enable debugging
                 services.AddNodeServices(options =>
                 {
-                    options.NodeOptions = "--inspect-brk";
-                    options.InvocationTimeoutMilliseconds = 99999999;
+                    options.LaunchWithDebugging = true;
+                    options.InvocationTimeoutMilliseconds = 99999999; // -1 doesn't work, once a js breakpoint is hit, the debugger disconnects
                 });
-            }
 
-            _serviceProvider = services.BuildServiceProvider();
+                _serviceProvider = services.BuildServiceProvider();
+
+                // InvokeAsync implicitly starts up a node instance. Adding a break point after InvokeAsync allows
+                // chrome to connect to the debugger
+                INodeServices nodeServices = _serviceProvider.GetRequiredService<INodeServices>();
+                try
+                {
+                    nodeServices.InvokeAsync<int>("");
+                }
+                catch
+                {
+                    // Do nothing
+                }
+            }
+            else
+            {
+                _serviceProvider = services.BuildServiceProvider();
+            }
 
             return _serviceProvider.GetRequiredService<IPrism>();
         }
