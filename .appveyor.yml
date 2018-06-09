@@ -19,4 +19,4 @@ deploy:
   skip_symbols: false
   artifact: /.*\.nupkg/
 cache:
-    - '%USERPROFILE%/.nuget/packages -> **/.csproj'
+    - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
