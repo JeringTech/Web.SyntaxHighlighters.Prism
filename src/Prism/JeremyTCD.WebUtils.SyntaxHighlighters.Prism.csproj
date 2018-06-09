@@ -19,7 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JeremyTCD.Microsoft.AspNetCore.NodeServices" Version="1.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
         <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" />
         <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" />
@@ -37,10 +37,6 @@
             <!-- To avoid copying entire folder structure (Node\bin) to the output folder - https://docs.microsoft.com/en-us/nuget/reference/nuspec#using-the-contentfiles-element-for-content-files -->
             <PackagePath>contentFiles\any\any</PackagePath>
         </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
     </ItemGroup>
 
     <ItemGroup>
