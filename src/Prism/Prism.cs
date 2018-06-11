@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.NodeServices;
+using Microsoft.AspNetCore.NodeServices.HostingModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,17 +27,17 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         /// <summary>
         /// Highlights <paramref name="code"/>.
         /// </summary>
-        /// <param name="code"></param>
+        /// <param name="code">Code to highlight.</param>
         /// <param name="languageAlias">A Prism language alias. Visit https://prismjs.com/index.html#languages-list for a list of language aliases.</param>
         /// <returns>Highlighted <paramref name="code"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="code"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="code"/> is null.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="languageAlias"/> is not a valid Prism language alias.</exception>
-        /// <exception cref="AggregateException">Thrown if a Node error occurs. Will contain a <see cref="NodeInvocationException"/> as its inner exception.</exception>
+        /// <exception cref="NodeInvocationException">Thrown if a Node error occurs.</exception>
         public virtual async Task<string> Highlight(string code, string languageAlias)
         {
-            if(code == null)
+            if (code == null)
             {
-                throw new ArgumentException(Strings.Exception_ParameterCannotBeNull, nameof(code));
+                throw new ArgumentNullException(Strings.Exception_ParameterCannotBeNull, nameof(code));
             }
 
             if (string.IsNullOrWhiteSpace(code))
@@ -51,7 +52,18 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
                 throw new ArgumentException(string.Format(Strings.Exception_InvalidPrismLanguageAlias, languageAlias));
             }
 
-            return await _nodeServices.InvokeExportAsync<string>(INTEROP_FILE, "highlight", code, languageAlias).ConfigureAwait(false);
+            try
+            {
+                return await _nodeServices.InvokeExportAsync<string>(INTEROP_FILE, "highlight", code, languageAlias).ConfigureAwait(false);
+            }
+            catch (AggregateException exception)
+            {
+                if (exception.InnerException is NodeInvocationException)
+                {
+                    throw exception.InnerException;
+                }
+                throw;
+            }
         }
 
         /// <summary>

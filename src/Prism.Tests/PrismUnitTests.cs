@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.NodeServices;
+using Microsoft.AspNetCore.NodeServices.HostingModels;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             mockPrism.CallBase = true;
 
             // Act and assert
-            ArgumentException result = await Assert.ThrowsAsync<ArgumentException>(() => mockPrism.Object.Highlight(null, null)).ConfigureAwait(false);
+            ArgumentNullException result = await Assert.ThrowsAsync<ArgumentNullException>(() => mockPrism.Object.Highlight(null, null)).ConfigureAwait(false);
         }
 
         [Theory]
@@ -73,7 +74,8 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             // Arrange
             const string dummyCode = "dummyCode";
             const string dummyLanguageAlias = "dummyLanguageAlias";
-            var dummyAggregateException = new AggregateException();
+            var dummyNodeInvocationException = new NodeInvocationException("", "");
+            var dummyAggregateException = new AggregateException("", dummyNodeInvocationException);
             Mock<INodeServices> mockNodeServices = _mockRepository.Create<INodeServices>();
             mockNodeServices.Setup(n => n.InvokeExportAsync<string>(Prism.INTEROP_FILE, "highlight", dummyCode, dummyLanguageAlias)).ThrowsAsync(dummyAggregateException);
             Mock<Prism> mockPrism = CreateMockPrism(mockNodeServices.Object);
@@ -81,8 +83,8 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             mockPrism.Setup(p => p.IsValidLanguageAlias(dummyLanguageAlias)).ReturnsAsync(true);
 
             // Act and assert
-            AggregateException result = await Assert.ThrowsAsync<AggregateException>(() => mockPrism.Object.Highlight(dummyCode, dummyLanguageAlias)).ConfigureAwait(false);
-            Assert.Same(dummyAggregateException, result);
+            NodeInvocationException result = await Assert.ThrowsAsync<NodeInvocationException>(() => mockPrism.Object.Highlight(dummyCode, dummyLanguageAlias)).ConfigureAwait(false);
+            Assert.Same(dummyNodeInvocationException, result);
         }
 
         [Fact]
