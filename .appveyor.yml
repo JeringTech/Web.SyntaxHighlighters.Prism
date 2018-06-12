@@ -1,8 +1,10 @@
 version: '{build}'
 skip_non_tags: true
 image: Visual Studio 2017
+# TODO if dotnet build isn't called, error MSB4044 is thrown by dotnet pack
 build_script:
 - ps: |
+    dotnet build
     dotnet pack -c release /p:version=$env:APPVEYOR_REPO_TAG_NAME
 # TODO figure out why each test is being uploaded twice (get-childitem called to check if there are multiple trx files)
 test_script:
