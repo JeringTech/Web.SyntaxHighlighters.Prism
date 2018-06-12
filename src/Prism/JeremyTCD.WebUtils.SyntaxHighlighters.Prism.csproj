@@ -16,7 +16,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <CodeAnalysisRuleSet>../../JeremyTCD.WebUtils.SyntaxHighlighters.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>../../JeremyTCD.WebUtils.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <ItemGroup>
