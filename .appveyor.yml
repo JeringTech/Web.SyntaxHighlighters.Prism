@@ -6,12 +6,10 @@ build_script:
 - ps: |
     dotnet build
     dotnet pack -c release /p:version=$env:APPVEYOR_REPO_TAG_NAME
-# TODO figure out why each test is being uploaded twice (get-childitem called to check if there are multiple trx files)
 test_script:
 - ps: |
     cd .\src\Prism.Tests
-    dotnet test -l trx -r ./ .\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests.csproj
-    get-childitem
+    dotnet test -l trx -r ./ --no-build .\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests.csproj
     $wc = New-Object 'System.Net.WebClient'
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\*.trx))
 artifacts:
@@ -22,6 +20,5 @@ deploy:
     secure: YuSNfK09e6bNa8EEC2jAsTZP8b8sHN6BDdhrqbI1hRAoqSAUUre5gH8CaW/85NpF
   skip_symbols: false
   artifact: /.*\.nupkg/
-# TODO changed the cache dependency, ensure that it works
 cache:
     - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
