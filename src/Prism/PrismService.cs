@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 {
-    public class Prism : IPrism, IDisposable
+    public class PrismService : IPrismService, IDisposable
     {
         internal const string INTEROP_FILE = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.bundle.js";
         private readonly INodeServices _nodeServices;
@@ -18,7 +18,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         /// </summary>
         private readonly Lazy<Task<string[]>> _aliases;
 
-        public Prism(INodeServices nodeServices)
+        public PrismService(INodeServices nodeServices)
         {
             _nodeServices = nodeServices;
             _aliases = new Lazy<Task<string[]>>(GetAliases);

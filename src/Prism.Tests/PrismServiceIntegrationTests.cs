@@ -7,7 +7,7 @@ using Xunit;
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
 {
-    public class PrismIntegrationTests : IDisposable
+    public class PrismServiceIntegrationTests : IDisposable
     {
         private ServiceProvider _serviceProvider;
 
@@ -16,10 +16,10 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         public void Highlight_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
         {
             // Arrange 
-            IPrism prism = CreatePrism();
+            IPrismService prismService = CreatePrismService();
 
             // Act
-            string result = prism.Highlight(dummyCode, dummyLanguageAlias).Result;
+            string result = prismService.Highlight(dummyCode, dummyLanguageAlias).Result;
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -66,10 +66,10 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         public void IsValidLanguageAlias_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
         {
             // Arrange
-            IPrism prism = CreatePrism();
+            IPrismService prismService = CreatePrismService();
 
             // Act
-            bool result = prism.IsValidLanguageAlias(dummyLanguageAlias).Result;
+            bool result = prismService.IsValidLanguageAlias(dummyLanguageAlias).Result;
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -99,7 +99,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        private IPrism CreatePrism()
+        private IPrismService CreatePrismService()
         {
             // Since a new container is created for each test, a new INodeServices instance is created as well.
             // This means that a new node process is started and then disposed of for each test. 
@@ -135,7 +135,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
                 _serviceProvider = services.BuildServiceProvider();
             }
 
-            return _serviceProvider.GetRequiredService<IPrism>();
+            return _serviceProvider.GetRequiredService<IPrismService>();
         }
 
         public void Dispose()

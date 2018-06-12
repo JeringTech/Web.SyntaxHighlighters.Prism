@@ -2,7 +2,7 @@
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 {
-    public interface IPrism
+    public interface IPrismService
     {
         Task<string> Highlight(string code, string languageAlias);
 

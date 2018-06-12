@@ -7,7 +7,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
     {
         public static IServiceCollection AddPrism(this IServiceCollection services)
         {
-            services.TryAddSingleton<IPrism, Prism>();
+            services.TryAddSingleton<IPrismService, PrismService>();
 
             // Third party services
             services.AddNodeServices();
