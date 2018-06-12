@@ -68,9 +68,9 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 
         /// <summary>
         /// Returns true if <paramref name="languageAlias"/> is a valid Prism language alias. Otherwise, returns false.
-        /// Visit https://prismjs.com/index.html#languages-list for a list of language aliases.
         /// </summary>
-        /// <param name="languageAlias"></param>
+        /// <param name="languageAlias">Language alias to validate. Visit https://prismjs.com/index.html#languages-list for a list of language aliases.</param>
+        /// <exception cref="NodeInvocationException">Thrown if a Node error occurs.</exception>
         public virtual async Task<bool> IsValidLanguageAlias(string languageAlias)
         {
             if (string.IsNullOrWhiteSpace(languageAlias))
@@ -78,11 +78,28 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
                 return false;
             }
 
-            string[] aliases = await _aliases.Value.ConfigureAwait(false);
+            string[] aliases;
+
+            try
+            {
+                aliases = await _aliases.Value.ConfigureAwait(false);
+            }
+            catch (AggregateException exception)
+            {
+                if (exception.InnerException is NodeInvocationException)
+                {
+                    throw exception.InnerException;
+                }
+                throw;
+            }
 
             return aliases.Contains(languageAlias);
         }
 
+        /// <summary>
+        /// Required for lazy initialization.
+        /// </summary>
+        /// <returns></returns>
         internal virtual Task<string[]> GetAliases()
         {
             return _nodeServices.InvokeExportAsync<string[]>(INTEROP_FILE, "getAliases");
