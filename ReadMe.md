@@ -21,7 +21,7 @@ public string ExampleFunction(string arg)
 }
 ```
 
-is transformed into the following markup by the syntax highlighter, Prism:
+is transformed into the following markup by the syntax highlighter Prism:
 
 ```html
 <span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
@@ -95,7 +95,7 @@ Node.js process when the application shuts down - if the application shuts down 
 running in the Node.js process will kill the process when it detects that its parent has been killed. Essentially, manually disposing of `IPrismService` instances is not mandatory.
 
 ### API
-#### PrismService.Highlight
+#### IPrismService.Highlight
 ##### Signature
 ```csharp
 public virtual async Task<string> Highlight(string code, string languageAlias)
@@ -108,7 +108,7 @@ public virtual async Task<string> Highlight(string code, string languageAlias)
   - Type: `string`
   - Description: A Prism language alias. Visit https://prismjs.com/index.html#languages-list for the list of valid language aliases.
 ##### Returns
-A `string` containing highlighted code.
+Highlighted code.
 ##### Exceptions
 - `ArgumentNullException`
   - Thrown if `code` is null.
@@ -126,7 +126,7 @@ string code = @"public string ExampleFunction(string arg)
 
 string highlightedCode = await prismService.Highlight(code, "csharp");
 ```
-#### PrismService.IsValidLanguageAlias
+#### IPrismService.IsValidLanguageAlias
 ##### Signature
 ```csharp
 public virtual async Task<bool> IsValidLanguageAlias(string languageAlias)
@@ -146,7 +146,7 @@ bool isValid = await prismService.IsValidLanguageAlias("csharp");
 ```
 
 ## Building
-The project can be built in Visual Studio 2017.
+This project can be built using Visual Studio 2017.
 
 ## Contributing
 Contributions are welcome!  
