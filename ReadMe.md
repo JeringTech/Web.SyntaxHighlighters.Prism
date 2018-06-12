@@ -1,4 +1,4 @@
-# SyntaxHighlighters.Prism
+# WebUtils.SyntaxHighlighters.Prism
 [![Build status](https://ci.appveyor.com/api/projects/status/ytdm1ft3s5gsmcdp?svg=true)](https://ci.appveyor.com/project/JeremyTCD/webutils-syntaxhighlighters)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
@@ -36,7 +36,7 @@ Prism is a a javascript library, which is ideal since syntax highlighting is oft
 - When page load time is critical.
 - When page size is critical.
 
-SyntaxHighlighters.Prism allows syntax highlighting to be done by .Net server-side applications and static site generators.
+WebUtils.SyntaxHighlighters.Prism allows syntax highlighting to be done by .Net server-side applications and static site generators.
 
 ## Prerequisites
 [Node.js](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
@@ -146,7 +146,7 @@ bool isValid = await prismService.IsValidLanguageAlias("csharp");
 ```
 
 ## Building
-The solution in this repository can be built in Visual Studio 2017.
+The project can be built in Visual Studio 2017.
 
 ## Contributing
 Contributions are welcome!  
