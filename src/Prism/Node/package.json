@@ -1,5 +1,6 @@
 {
-    "name": "syntax-highlighters",
+    "name": "jeremytcd-webutils-syntaxhighlighters-prism",
+    "description": "Not meant to be published",
     "version": "0.0.0",
     "license": "MIT",
     "scripts": {
