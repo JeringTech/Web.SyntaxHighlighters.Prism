@@ -1,12 +1,8 @@
 # WebUtils.SyntaxHighlighters.Prism
-[![Build status](https://ci.appveyor.com/api/projects/status/ytdm1ft3s5gsmcdp?svg=true)](https://ci.appveyor.com/project/JeremyTCD/webutils-syntaxhighlighters)
+[![Build status](https://ci.appveyor.com/api/projects/status/swmelqsuwnw41d0h?svg=true)](https://ci.appveyor.com/project/JeremyTCD/webutils-syntaxhighlighters-prism)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
+[![NuGet](https://img.shields.io/nuget/vpre/JeremyTCD.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/JeremyTCD.WebUtils.SyntaxHighlighters.Prism/)
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
-<!-- TODO nuget badge, this service should work - 
-[![NuGet][main-nuget-badge]][main-nuget]
-[main-nuget]: https://www.nuget.org/packages/JeremyTCD.WebUtils.SyntaxHighlighters.Prism/
-[main-nuget-badge]: https://img.shields.io/nuget/vpre/JeremyTCD.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget
---> 
 
 This project is a .Net wrapper library for [Prism](https://github.com/PrismJS/prism). 
 
