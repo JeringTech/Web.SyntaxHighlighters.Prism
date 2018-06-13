@@ -4,13 +4,13 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>JeremyTCD.WebUtils.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
-        <Description>A .Net wrapper for the javascript syntax highlighting library, PrismJs.</Description>
+        <Description>A .Net Wrapper for the Javascript Syntax Highlighter, Prism</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
-        <PackageLicenseUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters/blob/master/License.txt</PackageLicenseUrl>
-        <PackageProjectUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters</PackageProjectUrl>
-        <PackageReleaseNotes>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters/blob/master/Changelog.md</PackageReleaseNotes>
-        <PackageTags>web prism js syntax highlighter</PackageTags>
-        <RepositoryUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/blob/master/License.txt</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism</PackageProjectUrl>
+        <PackageReleaseNotes>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/blob/master/Changelog.md</PackageReleaseNotes>
+        <PackageTags>prism javascript syntax highlighter</PackageTags>
+        <RepositoryUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>true</IncludeSymbols>
     </PropertyGroup>
