@@ -19,7 +19,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             PrismService prismService = CreatePrismService();
 
             // Act and assert
-            ArgumentNullException result = await Assert.ThrowsAsync<ArgumentNullException>(() => prismService.Highlight(null, null)).ConfigureAwait(false);
+            ArgumentNullException result = await Assert.ThrowsAsync<ArgumentNullException>(() => prismService.HighlightAsync(null, null)).ConfigureAwait(false);
         }
 
         [Theory]
@@ -30,7 +30,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             PrismService prismService = CreatePrismService();
 
             // Act
-            string result = await prismService.Highlight(dummyCode, null).ConfigureAwait(false);
+            string result = await prismService.HighlightAsync(dummyCode, null).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(dummyCode, result);
@@ -59,10 +59,10 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             const string dummyLanguageAlias = "dummyLanguageAlias";
             Mock<PrismService> mockPrismService = CreateMockPrismService();
             mockPrismService.CallBase = true;
-            mockPrismService.Setup(p => p.IsValidLanguageAlias(dummyLanguageAlias)).ReturnsAsync(false);
+            mockPrismService.Setup(p => p.IsValidLanguageAliasAsync(dummyLanguageAlias)).ReturnsAsync(false);
 
             // Act and assert
-            ArgumentException result = await Assert.ThrowsAsync<ArgumentException>(() => mockPrismService.Object.Highlight(dummyCode, dummyLanguageAlias)).ConfigureAwait(false);
+            ArgumentException result = await Assert.ThrowsAsync<ArgumentException>(() => mockPrismService.Object.HighlightAsync(dummyCode, dummyLanguageAlias)).ConfigureAwait(false);
             Assert.Equal(result.Message, string.Format(Strings.Exception_InvalidPrismLanguageAlias, dummyLanguageAlias));
             _mockRepository.VerifyAll();
         }
@@ -79,10 +79,10 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             mockNodeServices.Setup(n => n.InvokeExportAsync<string>(PrismService.INTEROP_FILE, "highlight", dummyCode, dummyLanguageAlias)).ThrowsAsync(dummyAggregateException);
             Mock<PrismService> mockPrismService = CreateMockPrismService(mockNodeServices.Object);
             mockPrismService.CallBase = true;
-            mockPrismService.Setup(p => p.IsValidLanguageAlias(dummyLanguageAlias)).ReturnsAsync(true);
+            mockPrismService.Setup(p => p.IsValidLanguageAliasAsync(dummyLanguageAlias)).ReturnsAsync(true);
 
             // Act and assert
-            NodeInvocationException result = await Assert.ThrowsAsync<NodeInvocationException>(() => mockPrismService.Object.Highlight(dummyCode, dummyLanguageAlias)).ConfigureAwait(false);
+            NodeInvocationException result = await Assert.ThrowsAsync<NodeInvocationException>(() => mockPrismService.Object.HighlightAsync(dummyCode, dummyLanguageAlias)).ConfigureAwait(false);
             Assert.Same(dummyNodeInvocationException, result);
             _mockRepository.VerifyAll();
         }
@@ -98,10 +98,10 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             mockNodeServices.Setup(n => n.InvokeExportAsync<string>(PrismService.INTEROP_FILE, "highlight", dummyCode, dummyLanguageAlias)).ReturnsAsync(dummyHighlightedCode);
             Mock<PrismService> mockPrismService = CreateMockPrismService(mockNodeServices.Object);
             mockPrismService.CallBase = true;
-            mockPrismService.Setup(p => p.IsValidLanguageAlias(dummyLanguageAlias)).ReturnsAsync(true);
+            mockPrismService.Setup(p => p.IsValidLanguageAliasAsync(dummyLanguageAlias)).ReturnsAsync(true);
 
             // Act
-            string result = await mockPrismService.Object.Highlight(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
+            string result = await mockPrismService.Object.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(dummyHighlightedCode, result);
@@ -116,7 +116,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             PrismService prismService = CreatePrismService();
 
             // Act
-            bool result = await prismService.IsValidLanguageAlias(dummyLanguageAlias).ConfigureAwait(false);
+            bool result = await prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.False(result);
@@ -154,7 +154,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             PrismService prismService = CreatePrismService(mockNodeServices.Object);
 
             // Act
-            bool result = await prismService.IsValidLanguageAlias(dummyLanguageAlias).ConfigureAwait(false);
+            bool result = await prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -196,7 +196,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             PrismService prismService = CreatePrismService(mockNodeServices.Object);
 
             // Act and assert
-            NodeInvocationException result = await Assert.ThrowsAsync<NodeInvocationException>(() => prismService.IsValidLanguageAlias(dummyLanguageAlias)).ConfigureAwait(false);
+            NodeInvocationException result = await Assert.ThrowsAsync<NodeInvocationException>(() => prismService.IsValidLanguageAliasAsync(dummyLanguageAlias)).ConfigureAwait(false);
             Assert.Same(dummyNodeInvocationException, result);
             _mockRepository.VerifyAll();
         }

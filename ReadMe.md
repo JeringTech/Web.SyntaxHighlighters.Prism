@@ -91,10 +91,10 @@ Node.js process when the application shuts down - if the application shuts down 
 running in the Node.js process will kill the process when it detects that its parent has been killed. Essentially, manually disposing of `IPrismService` instances is not mandatory.
 
 ### API
-#### IPrismService.Highlight
+#### IPrismService.HighlightAsync
 ##### Signature
 ```csharp
-public virtual async Task<string> Highlight(string code, string languageAlias)
+public virtual async Task<string> HighlightAsync(string code, string languageAlias)
 ```
 ##### Parameters
 - `code`
@@ -120,12 +120,12 @@ string code = @"public string ExampleFunction(string arg)
     return arg + ""dummyString"";
 }";
 
-string highlightedCode = await prismService.Highlight(code, "csharp");
+string highlightedCode = await prismService.HighlightAsync(code, "csharp");
 ```
-#### IPrismService.IsValidLanguageAlias
+#### IPrismService.IsValidLanguageAliasAsync
 ##### Signature
 ```csharp
-public virtual async Task<bool> IsValidLanguageAlias(string languageAlias)
+public virtual async Task<bool> IsValidLanguageAliasAsync(string languageAlias)
 ```
 ##### Parameters
 - `languageAlias`
@@ -138,7 +138,7 @@ public virtual async Task<bool> IsValidLanguageAlias(string languageAlias)
   - Thrown if a Node error occurs.
 ##### Example
 ```csharp
-bool isValid = await prismService.IsValidLanguageAlias("csharp");
+bool isValid = await prismService.IsValidLanguageAliasAsync("csharp");
 ```
 
 ## Building

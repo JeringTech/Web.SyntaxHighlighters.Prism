@@ -19,7 +19,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             IPrismService prismService = CreatePrismService();
 
             // Act
-            string result = prismService.Highlight(dummyCode, dummyLanguageAlias).Result;
+            string result = prismService.HighlightAsync(dummyCode, dummyLanguageAlias).Result;
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -69,7 +69,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             IPrismService prismService = CreatePrismService();
 
             // Act
-            bool result = prismService.IsValidLanguageAlias(dummyLanguageAlias).Result;
+            bool result = prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).Result;
 
             // Assert
             Assert.Equal(expectedResult, result);
