@@ -11,7 +11,7 @@ module.exports = env => {
         output: {
             libraryTarget: 'commonjs2',
             path: Path.join(__dirname, 'bin'),
-            filename: 'JeremyTCD.WebUtils.SyntaxHighlighters.Prism.bundle.js'
+            filename: env.bundleName
         }
     };
 };
