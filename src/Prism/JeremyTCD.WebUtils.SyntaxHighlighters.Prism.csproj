@@ -61,7 +61,7 @@
          After restoring packages, attempt to build a bundle. build.js determines whether or not it is neccessary.-->
     <Target Name="NodeBuild" BeforeTargets="BeforeBuild">
         <Yarn WorkingDirectory="./Node" Command="install" />
-        <Exec WorkingDirectory="./Node" Command="node build.js --mode=$(Configuration)"></Exec>
+        <Exec WorkingDirectory="./Node" Command="node build.js --mode=$(Configuration) --assembly-name=$(AssemblyName)"></Exec>
     </Target>
 
 </Project>
