@@ -5,8 +5,8 @@ var PrismLanguageLoader = require('prismjs/components/index.js');
 PrismLanguageLoader(languageNames);
 
 module.exports = {
-    highlight: function (callback, code, language) {
-        var result = Prism.highlight(code, Prism.languages[language], language);
+    highlight: function (callback, code, languageAlias) {
+        var result = Prism.highlight(code, Prism.languages[languageAlias], languageAlias);
 
         callback(null /* errors */, result);
     },
