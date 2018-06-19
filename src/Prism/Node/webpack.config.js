@@ -9,7 +9,7 @@ module.exports = env => {
         target: 'node',
         entry: './interop.js',
         output: {
-            libraryTarget: 'commonjs',
+            libraryTarget: 'commonjs2',
             path: Path.join(__dirname, 'bin'),
             filename: 'JeremyTCD.WebUtils.SyntaxHighlighters.Prism.bundle.js'
         }
