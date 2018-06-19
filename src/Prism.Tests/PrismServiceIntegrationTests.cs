@@ -123,7 +123,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
                 INodeServices nodeServices = _serviceProvider.GetRequiredService<INodeServices>();
                 try
                 {
-                    nodeServices.InvokeAsync<int>("");
+                    int dummy = nodeServices.InvokeAsync<int>("").Result;
                 }
                 catch
                 {
