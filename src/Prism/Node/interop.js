@@ -1,9 +1,9 @@
 ﻿var Prism = require('prismjs');
 var PrismLanguageLoader = require('prismjs/components/index.js');
 var components = require('prismjs/components.js');
-var languageNames = Object.keys(components.languages).filter(languageName => languageName !== 'meta');
 
-// Webpack must include all languages
+// Get all language names for use in getAliases
+var languageNames = Object.keys(components.languages).filter(languageName => languageName !== 'meta');
 PrismLanguageLoader(languageNames);
 
 module.exports = {
