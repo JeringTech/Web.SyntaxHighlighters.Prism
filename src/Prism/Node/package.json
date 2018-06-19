@@ -1,8 +1,6 @@
 {
-    "name": "jeremytcd-webutils-syntaxhighlighters-prism",
-    "description": "Not meant to be published",
-    "version": "0.0.0",
-    "license": "MIT",
+    "private":  true,
+
     "scripts": {
         "build": "node ./build.js"
     },
