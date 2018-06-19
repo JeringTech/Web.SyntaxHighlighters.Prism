@@ -8,7 +8,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 {
     public class PrismService : IPrismService, IDisposable
     {
-        internal const string INTEROP_FILE = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.bundle.js";
+        internal const string BUNDLE = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.bundle.js";
         private readonly INodeServices _nodeServices;
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 
             try
             {
-                return await _nodeServices.InvokeExportAsync<string>(INTEROP_FILE, "highlight", code, languageAlias).ConfigureAwait(false);
+                return await _nodeServices.InvokeExportAsync<string>(BUNDLE, "highlight", code, languageAlias).ConfigureAwait(false);
             }
             catch (AggregateException exception)
             {
@@ -103,7 +103,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         /// <returns></returns>
         internal virtual Task<string[]> GetAliasesAsync()
         {
-            return _nodeServices.InvokeExportAsync<string[]>(INTEROP_FILE, "getAliases");
+            return _nodeServices.InvokeExportAsync<string[]>(BUNDLE, "getAliases");
         }
 
         public void Dispose()
