@@ -55,17 +55,13 @@
         </EmbeddedResource>
     </ItemGroup>
 
-    <!-- Properties for YarnBuild -->
-    <PropertyGroup>
-        <YarnWorkingDir>./Node</YarnWorkingDir>
-        <YarnBuildCommand>run build --mode=debug</YarnBuildCommand>
-        <YarnBuildCommand Condition="'$(Configuration)' == 'Release'">run build --mode=release</YarnBuildCommand>
-    </PropertyGroup>
-
     <!-- Run yarn install in case package.json has changed and user isn't using VS or has automatic npm package restore disabled. 
-         This is similar to how nuget restore runs for every project on every build. -->
-    <Target Name="YarnInstall" BeforeTargets="YarnBuild">
+         Similar to how nuget restore runs for every project on every build. 
+         
+         After restoring packages, attempt to build a bundle. build.js determines whether or not it is neccessary.-->
+    <Target Name="NodeBuild" BeforeTargets="BeforeBuild">
         <Yarn WorkingDirectory="./Node" Command="install" />
+        <Exec WorkingDirectory="./Node" Command="node build.js --mode=$(Configuration)"></Exec>
     </Target>
 
 </Project>
