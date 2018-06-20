@@ -28,7 +28,7 @@ is transformed into the following markup by the syntax highlighter Prism:
 ```
 
 Prism is a a javascript library, which is ideal since syntax highlighting is often done client-side. There are however, situations where syntax highlighting can't or shouldn't be done client-side, for example:
-- When generating pages for [AMP](https://www.ampproject.org/), since AMP does not allow scripts.
+- When generating [AMP](https://www.ampproject.org/) pages, since AMP pages cannot run scripts.
 - When page load time is critical.
 - When page size is critical.
 
