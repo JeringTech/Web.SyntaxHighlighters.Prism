@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>JeremyTCD.WebUtils.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
-        <Description>A .Net Wrapper for the Javascript Syntax Highlighter, Prism</Description>
+        <Description>A C# Wrapper for the Javascript Syntax Highlighter, Prism</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
         <PackageLicenseUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/blob/master/License.txt</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism</PackageProjectUrl>
