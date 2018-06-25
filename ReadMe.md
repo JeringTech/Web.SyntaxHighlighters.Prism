@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/nuget/vpre/JeremyTCD.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/JeremyTCD.WebUtils.SyntaxHighlighters.Prism/)
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
 
-This project is a .Net wrapper for [Prism](https://github.com/PrismJS/prism). 
+This project is a C# wrapper for [Prism](https://github.com/PrismJS/prism). 
 
 ## Overview
 Syntax highlighters add markup to code to facilitate styling. For example, the following code:
@@ -32,7 +32,7 @@ Prism is a a javascript library, which is ideal since syntax highlighting is oft
 - When page load time is critical.
 - When page size is critical.
 
-WebUtils.SyntaxHighlighters.Prism allows syntax highlighting to be done by .Net server-side applications and static site generators.
+WebUtils.SyntaxHighlighters.Prism allows syntax highlighting to be done by .Net server-side applications and tools like static site generators.
 
 ## Prerequisites
 [Node.js](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
