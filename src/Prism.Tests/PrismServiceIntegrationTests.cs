@@ -12,8 +12,8 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         private ServiceProvider _serviceProvider;
 
         [Theory]
-        [MemberData(nameof(Highlight_HighlightsCode_Data))]
-        public void Highlight_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
+        [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
+        public void HighlightAsync_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
         {
             // Arrange 
             IPrismService prismService = CreatePrismService();
@@ -25,7 +25,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> Highlight_HighlightsCode_Data()
+        public static IEnumerable<object[]> HighlightAsync_HighlightsCode_Data()
         {
             return new object[][]
             {
@@ -62,8 +62,8 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         }
 
         [Theory]
-        [MemberData(nameof(IsValidLanguageAlias_ChecksIfLanguageAliasIsValid_Data))]
-        public void IsValidLanguageAlias_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
+        [MemberData(nameof(IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid_Data))]
+        public void IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
         {
             // Arrange
             IPrismService prismService = CreatePrismService();
@@ -75,7 +75,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             Assert.Equal(expectedResult, result);
         }
 
-        public static IEnumerable<object[]> IsValidLanguageAlias_ChecksIfLanguageAliasIsValid_Data()
+        public static IEnumerable<object[]> IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid_Data()
         {
             return new object[][]
             {
