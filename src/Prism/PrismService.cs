@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.NodeServices;
 using Microsoft.AspNetCore.NodeServices.HostingModels;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
@@ -16,12 +16,12 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         /// can take several hundred milliseconds. Wrap in a <see cref="Task{T}"/> for asynchrony.
         /// More information on AsyncLazy - https://blogs.msdn.microsoft.com/pfxteam/2011/01/15/asynclazyt/.
         /// </summary>
-        private readonly Lazy<Task<string[]>> _aliases;
+        private readonly Lazy<Task<HashSet<string>>> _aliases;
 
         public PrismService(INodeServices nodeServices)
         {
             _nodeServices = nodeServices;
-            _aliases = new Lazy<Task<string[]>>(GetAliasesAsync);
+            _aliases = new Lazy<Task<HashSet<string>>>(GetAliasesAsync);
         }
 
         /// <summary>
@@ -79,11 +79,9 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
                 return false;
             }
 
-            string[] aliases;
-
             try
             {
-                aliases = await _aliases.Value.ConfigureAwait(false);
+                return (await _aliases.Value.ConfigureAwait(false)).Contains(languageAlias);
             }
             catch (AggregateException exception)
             {
@@ -93,17 +91,15 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
                 }
                 throw;
             }
-
-            return aliases.Contains(languageAlias);
         }
 
         /// <summary>
         /// Required for lazy initialization.
         /// </summary>
-        /// <returns></returns>
-        internal virtual Task<string[]> GetAliasesAsync()
+        /// <returns>Aliases.</returns>
+        internal virtual Task<HashSet<string>> GetAliasesAsync()
         {
-            return _nodeServices.InvokeExportAsync<string[]>(BUNDLE, "getAliases");
+            return _nodeServices.InvokeExportAsync<HashSet<string>>(BUNDLE, "getAliases");
         }
 
         public void Dispose()
