@@ -2,7 +2,7 @@ const Path = require('path');
 
 module.exports = env => {
     let mode = env.mode.toLowerCase() === 'release' ? 'production' : 'development'; // Default to development, production mode minifies scripts
-    console.log(`Webpack mode: ${mode}.`);
+    console.log(`Mode: ${mode}.`);
 
     return {
         mode: mode,
