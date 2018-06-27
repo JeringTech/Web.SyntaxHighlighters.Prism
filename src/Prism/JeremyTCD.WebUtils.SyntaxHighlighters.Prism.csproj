@@ -17,24 +17,24 @@
 
     <PropertyGroup>
         <CodeAnalysisRuleSet>../../JeremyTCD.WebUtils.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
+        <BundleName>$(AssemblyName).bundle.js</BundleName>
+        <!-- Exclude Javascript\bin and Javascript\node_modules from project - https://github.com/dotnet/cli/issues/7525 -->
+        <DefaultItemExcludes>Javascript\bin\**;Javascript\node_modules\**;$(DefaultItemExcludes)</DefaultItemExcludes>
     </PropertyGroup>
 
-    <!-- Ignore generated files and folders -->
     <ItemGroup>
-      <None Remove="Node\bin\**" />
-      <None Remove="Node\node_modules\**" />
-      <None Remove="Node\lastBuildData" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="Node\bin\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.bundle.js">
-            <!-- Discards Node\bin file structure - https://github.com/Microsoft/msbuild/issues/2795 -->
+        <JavascriptInputs Include="Javascript\**" Exclude="$(DefaultItemExcludes)" />
+        <JavascriptOutputs Include="Javascript\bin\$(BundleName)" />
+        <!-- If any file in JavascriptInputs has changed, fast up-to-date check must indicate that a rebuild is required - https://github.com/dotnet/project-system/pull/2241 -->
+        <UpToDateCheckInput Include="@(JavascriptInputs)" />
+        <Content Include="@(JavascriptOutputs)">
+            <!-- Discards Javascript\bin file structure - https://github.com/Microsoft/msbuild/issues/2795 -->
             <Link>%(Filename)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <!-- This adds copyToOutput="true" to the corresponding files element in the .nuspec generated for this project. copyToOutput="true" instructs consuming projects to copy this file
                  to the output directory on build - https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#including-content-in-a-package -->
             <PackageCopyToOutput>true</PackageCopyToOutput>
-            <!-- Discards Node\bin file structure - https://docs.microsoft.com/en-us/nuget/reference/nuspec#using-the-contentfiles-element-for-content-files -->
+            <!-- Discards Javascript\bin file structure - https://docs.microsoft.com/en-us/nuget/reference/nuspec#using-the-contentfiles-element-for-content-files -->
             <PackagePath>contentFiles\any\any</PackagePath>
         </Content>
     </ItemGroup>
@@ -59,12 +59,9 @@
         </EmbeddedResource>
     </ItemGroup>
 
-    <!-- Run yarn install in case package.json has changed and user isn't using VS or has automatic npm package restore disabled. 
-         Similar to how nuget restore runs for every project on every build. 
-         After restoring packages, attempt to build a bundle. build.js determines whether or not it is neccessary.-->
-    <Target Name="NodeBuild" BeforeTargets="BeforeBuild">
-        <Yarn WorkingDirectory="./Node" Command="install" />
-        <Exec WorkingDirectory="./Node" Command="node build.js --mode=$(Configuration) --assembly-name=$(AssemblyName)"></Exec>
+    <!-- Restores JS packages and builds bundle -->
+    <Target Name="JavascriptBuild" BeforeTargets="BeforeBuild" Inputs="@(JavascriptInputs)" Outputs="@(JavascriptOutputs)">
+        <Yarn WorkingDirectory=".\Javascript" Command="run build --env.mode=$(Configuration) --env.bundleName=$(BundleName)" />
     </Target>
 
 </Project>
