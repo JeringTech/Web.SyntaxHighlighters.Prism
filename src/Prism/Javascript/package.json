@@ -1,8 +1,7 @@
 {
     "private":  true,
-
     "scripts": {
-        "build": "node ./build.js"
+        "build": "echo. && echo Yarn Install: && yarn install && echo. && echo Webpack: && webpack"
     },
     "dependencies": {
         "prismjs": "^1.14.0",
