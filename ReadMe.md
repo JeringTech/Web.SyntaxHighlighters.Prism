@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/nuget/vpre/JeremyTCD.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/JeremyTCD.WebUtils.SyntaxHighlighters.Prism/)
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
 
-This project is a C# wrapper for [Prism](https://github.com/PrismJS/prism). 
+A C# Wrapper for the Syntax Highlighter, [Prism](https://github.com/PrismJS/prism). 
 
 ## Overview
 Syntax highlighters add markup to code to facilitate styling. For example, the following code:
