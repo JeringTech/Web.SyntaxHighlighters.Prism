@@ -146,4 +146,6 @@ This project can be built using Visual Studio 2017.
 
 ## Contributing
 Contributions are welcome!  
+
+## About
 Follow [@JeremyTCD](https://twitter.com/intent/user?screen_name=JeremyTCD) for updates.
