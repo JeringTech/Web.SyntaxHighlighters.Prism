@@ -81,7 +81,9 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 
             try
             {
-                return (await _aliases.Value.ConfigureAwait(false)).Contains(languageAlias);
+                HashSet<string> aliases = await _aliases.Value.ConfigureAwait(false);
+
+                return aliases.Contains(languageAlias);
             }
             catch (AggregateException exception)
             {
@@ -97,9 +99,11 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         /// Required for lazy initialization.
         /// </summary>
         /// <returns>Aliases.</returns>
-        internal virtual Task<HashSet<string>> GetAliasesAsync()
+        internal virtual async Task<HashSet<string>> GetAliasesAsync()
         {
-            return _nodeServices.InvokeExportAsync<HashSet<string>>(BUNDLE, "getAliases");
+            string[] aliases = await _nodeServices.InvokeExportAsync<string[]>(BUNDLE, "getAliases").ConfigureAwait(false);
+
+            return new HashSet<string>(aliases);
         }
 
         public void Dispose()
