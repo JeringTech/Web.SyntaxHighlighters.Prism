@@ -4,12 +4,12 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>JeremyTCD.WebUtils.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
-        <Description>A C# Wrapper for the Javascript Syntax Highlighter, Prism</Description>
+        <Description>A C# Wrapper for the Syntax Highlighter, Prism</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
         <PackageLicenseUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/blob/master/License.txt</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism</PackageProjectUrl>
         <PackageReleaseNotes>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/blob/master/Changelog.md</PackageReleaseNotes>
-        <PackageTags>prism javascript syntax highlighter</PackageTags>
+        <PackageTags>prism syntax highlighter</PackageTags>
         <RepositoryUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>true</IncludeSymbols>
