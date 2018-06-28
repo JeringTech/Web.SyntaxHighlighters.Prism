@@ -87,8 +87,9 @@ serviceProvider.Dispose(); // Calls Dispose on objects it has instantiated that 
 ```
 `Dispose` kills the spawned Node.js process.
 Note that even if `Dispose` isn't called manually, the service that manages the Node.js process, `INodeService` from [Microsoft.AspNetCore.NodeServices](https://github.com/aspnet/JavaScriptServices/tree/dev/src/Microsoft.AspNetCore.NodeServices), will kill the 
-Node.js process when the application shuts down - if the application shuts down gracefully. If the application does not shutdown gracefully, a [script](https://github.com/aspnet/JavaScriptServices/blob/dev/src/Microsoft.AspNetCore.NodeServices/TypeScript/Util/ExitWhenParentExits.ts)
-running in the Node.js process will kill the process when it detects that its parent has been killed. Essentially, manually disposing of `IPrismService` instances is not mandatory.
+Node.js process when the application shuts down - if the application shuts down gracefully. If the application does not shutdown gracefully, the Node.js process will kill 
+itself when it [detects](https://github.com/aspnet/JavaScriptServices/blob/cf659b3fda367619f3873bd5f0e445698cebe340/src/Microsoft.AspNetCore.NodeServices/TypeScript/Util/ExitWhenParentExits.ts) that its parent has been killed. 
+Essentially, manually disposing of `IHighlightJSService` instances is not mandatory.
 
 ### API
 #### IPrismService.HighlightAsync
