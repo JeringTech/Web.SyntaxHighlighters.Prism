@@ -3,7 +3,11 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/compare/2.0.1...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/compare/2.0.2...HEAD)
+
+## 2.0.2 - Jun 28, 2018
+### Fixes
+- Fixed javascript bundle not being minified.
 
 ## 2.0.1 - Jun 28, 2018
 ### Fixes
