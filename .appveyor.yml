@@ -4,7 +4,7 @@ image: Visual Studio 2017
 # TODO if dotnet build isn't called, error MSB4044 is thrown by dotnet pack
 build_script:
 - ps: |
-    dotnet build
+    dotnet build -c release
     dotnet pack -c release /p:version=$env:APPVEYOR_REPO_TAG_NAME
 test_script:
 - ps: |
@@ -20,5 +20,6 @@ deploy:
     secure: YuSNfK09e6bNa8EEC2jAsTZP8b8sHN6BDdhrqbI1hRAoqSAUUre5gH8CaW/85NpF
   skip_symbols: false
   artifact: /.*\.nupkg/
-cache:
-    - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
+# If caching fails, the entire build fails - https://github.com/appveyor/ci/issues/1509
+#cache:
+#    - '%USERPROFILE%\.nuget\packages -> **\*.csproj'
