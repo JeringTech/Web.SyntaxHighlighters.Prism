@@ -10,7 +10,7 @@ module.exports = env => {
         entry: './interop.js',
         output: {
             libraryTarget: 'commonjs2',
-            path: Path.join(__dirname, 'bin'),
+            path: Path.join(__dirname, 'bin', env.mode),
             filename: env.bundleName
         }
     };

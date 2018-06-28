@@ -24,7 +24,7 @@
 
     <ItemGroup>
         <JavascriptInputs Include="Javascript\**" Exclude="$(DefaultItemExcludes)" />
-        <JavascriptOutputs Include="Javascript\bin\$(BundleName)" />
+        <JavascriptOutputs Include="Javascript\bin\$(Configuration)\$(BundleName)" />
         <!-- If any file in JavascriptInputs has changed, fast up-to-date check must indicate that a rebuild is required - https://github.com/dotnet/project-system/pull/2241 -->
         <UpToDateCheckInput Include="@(JavascriptInputs)" />
         <Content Include="@(JavascriptOutputs)">
