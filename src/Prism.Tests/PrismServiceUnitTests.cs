@@ -20,6 +20,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
 
             // Act and assert
             ArgumentNullException result = await Assert.ThrowsAsync<ArgumentNullException>(() => prismService.HighlightAsync(null, null)).ConfigureAwait(false);
+            Assert.Equal($"{Strings.Exception_ParameterCannotBeNull}\nParameter name: code", result.Message, ignoreLineEndingDifferences: true);
         }
 
         [Theory]

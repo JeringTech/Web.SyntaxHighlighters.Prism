@@ -37,7 +37,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         {
             if (code == null)
             {
-                throw new ArgumentNullException(Strings.Exception_ParameterCannotBeNull, nameof(code));
+                throw new ArgumentNullException(nameof(code), Strings.Exception_ParameterCannotBeNull);
             }
 
             if (string.IsNullOrWhiteSpace(code))
