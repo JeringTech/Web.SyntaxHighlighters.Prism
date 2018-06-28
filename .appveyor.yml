@@ -9,7 +9,7 @@ build_script:
 test_script:
 - ps: |
     cd .\src\Prism.Tests
-    dotnet test -l trx -r ./ --no-build .\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests.csproj
+    dotnet test -c release -l trx -r ./ --no-build .\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests.csproj
     $wc = New-Object 'System.Net.WebClient'
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\*.trx))
 artifacts:
