@@ -3,7 +3,11 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/compare/2.0.2...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/compare/2.0.3...HEAD)
+
+## 2.0.3 - Jul 3, 2018
+### Fixes
+- Fixed dev dependencies not being excluded from Nuget package.
 
 ## 2.0.2 - Jun 28, 2018
 ### Fixes
