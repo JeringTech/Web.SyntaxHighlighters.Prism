@@ -14,6 +14,8 @@
         <PackageReference Include="Moq" Version="4.8.2" />
         <PackageReference Include="xunit" Version="2.3.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+        <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" ExcludeAssets="Runtime" />
+        <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" ExcludeAssets="Runtime" />
     </ItemGroup>
 
     <ItemGroup>
