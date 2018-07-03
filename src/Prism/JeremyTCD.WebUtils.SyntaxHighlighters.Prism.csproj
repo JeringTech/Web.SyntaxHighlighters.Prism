@@ -42,9 +42,9 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
-        <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" />
-        <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" />
-        <PackageReference Include="Yarn.MSBuild" Version="1.5.2" PrivateAssets="All"/>
+        <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" PrivateAssets="All" ExcludeAssets="Runtime" />
+        <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" PrivateAssets="All" ExcludeAssets="Runtime" />
+        <PackageReference Include="Yarn.MSBuild" Version="1.5.2" PrivateAssets="All" ExcludeAssets="Runtime" />
     </ItemGroup>
 
     <ItemGroup>
