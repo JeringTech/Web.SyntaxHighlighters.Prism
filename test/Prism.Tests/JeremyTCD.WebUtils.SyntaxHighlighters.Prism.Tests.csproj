@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <CodeAnalysisRuleSet>../../JeremyTCD.WebUtils.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>..\..\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Prism\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.csproj" />
+      <ProjectReference Include="..\..\src\Prism\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.csproj" />
     </ItemGroup>
 
 </Project>
