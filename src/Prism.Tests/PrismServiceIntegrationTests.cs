@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
@@ -13,13 +14,13 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
 
         [Theory]
         [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
-        public void HighlightAsync_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
+        public async Task HighlightAsync_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
         {
             // Arrange 
-            IPrismService prismService = CreatePrismService();
+            IPrismService prismService = await CreatePrismService().ConfigureAwait(false);
 
             // Act
-            string result = prismService.HighlightAsync(dummyCode, dummyLanguageAlias).Result;
+            string result = await prismService.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -63,13 +64,13 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
 
         [Theory]
         [MemberData(nameof(IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid_Data))]
-        public void IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
+        public async Task IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
         {
             // Arrange
-            IPrismService prismService = CreatePrismService();
+            IPrismService prismService = await CreatePrismService().ConfigureAwait(false);
 
             // Act
-            bool result = prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).Result;
+            bool result = await prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -99,7 +100,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        private IPrismService CreatePrismService()
+        private async Task<IPrismService> CreatePrismService()
         {
             // Since a new container is created for each test, a new INodeServices instance is created as well.
             // This means that a new node process is started and then disposed of for each test. 
@@ -123,7 +124,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
                 INodeServices nodeServices = _serviceProvider.GetRequiredService<INodeServices>();
                 try
                 {
-                    int dummy = nodeServices.InvokeAsync<int>("").Result;
+                    int dummy = await nodeServices.InvokeAsync<int>("").ConfigureAwait(false);
                 }
                 catch
                 {
