@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Jering.JavascriptUtils.NodeJS;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
@@ -10,7 +11,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
             services.TryAddSingleton<IPrismService, PrismService>();
 
             // Third party services
-            services.AddNodeServices();
+            services.AddNodeJS();
 
             return services;
         }

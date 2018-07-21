@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.NodeServices;
-using Microsoft.AspNetCore.NodeServices.HostingModels;
+﻿using Jering.JavascriptUtils.NodeJS;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -73,37 +74,58 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         }
 
         [Fact]
-        public async Task Highlight_ThrowsExceptionIfANodeErrorOccurs()
-        {
-            // Arrange
-            const string dummyCode = "dummyCode";
-            const string dummyLanguageAlias = "dummyLanguageAlias";
-            var dummyNodeInvocationException = new NodeInvocationException("", "");
-            var dummyAggregateException = new AggregateException("", dummyNodeInvocationException);
-            Mock<INodeServices> mockNodeServices = _mockRepository.Create<INodeServices>();
-            mockNodeServices.Setup(n => n.InvokeExportAsync<string>(PrismService.BUNDLE, "highlight", dummyCode, dummyLanguageAlias)).ThrowsAsync(dummyAggregateException);
-            Mock<PrismService> mockPrismService = CreateMockPrismService(mockNodeServices.Object);
-            mockPrismService.CallBase = true;
-            mockPrismService.Setup(p => p.IsValidLanguageAliasAsync(dummyLanguageAlias)).ReturnsAsync(true);
-
-            // Act and assert
-            NodeInvocationException result = await Assert.
-                ThrowsAsync<NodeInvocationException>(async () => await mockPrismService.Object.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false)).
-                ConfigureAwait(false);
-            Assert.Same(dummyNodeInvocationException, result);
-            _mockRepository.VerifyAll();
-        }
-
-        [Fact]
-        public async Task Highlight_IfSuccessfulInvokesHighlightInInteropJSAndReturnsHighlightedCode()
+        public async Task Highlight_InvokesFromCacheIfModuleIsCached()
         {
             // Arrange
             const string dummyCode = "dummyCode";
             const string dummyHighlightedCode = "dummyHighlightedCode";
             const string dummyLanguageAlias = "dummyLanguageAlias";
-            Mock<INodeServices> mockNodeServices = _mockRepository.Create<INodeServices>();
-            mockNodeServices.Setup(n => n.InvokeExportAsync<string>(PrismService.BUNDLE, "highlight", dummyCode, dummyLanguageAlias)).ReturnsAsync(dummyHighlightedCode);
-            Mock<PrismService> mockPrismService = CreateMockPrismService(mockNodeServices.Object);
+            Mock<INodeJSService> mockNodeJSService = _mockRepository.Create<INodeJSService>();
+            mockNodeJSService.
+                Setup(n => n.TryInvokeFromCacheAsync<string>(PrismService.MODULE_CACHE_IDENTIFIER,
+                    "highlight",
+                    It.Is<object[]>(arr => arr[0].Equals(dummyCode) && arr[1].Equals(dummyLanguageAlias)),
+                    default(CancellationToken))).
+                ReturnsAsync((true, dummyHighlightedCode));
+            Mock<PrismService> mockPrismService = CreateMockPrismService(mockNodeJSService.Object);
+            mockPrismService.CallBase = true;
+            mockPrismService.Setup(p => p.IsValidLanguageAliasAsync(dummyLanguageAlias)).ReturnsAsync(true);
+
+            // Act
+            string result = await mockPrismService.Object.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
+
+            // Assert
+            Assert.Equal(dummyHighlightedCode, result);
+            _mockRepository.VerifyAll();
+        }
+
+        [Fact]
+        public async Task Highlight_InvokesFromStreamIfModuleIsNotCached()
+        {
+            // Arrange
+            const string dummyCode = "dummyCode";
+            const string dummyLanguageAlias = "dummyLanguageAlias";
+            const string dummyHighlightedCode = "dummyHighlightedCode";
+            var dummyStream = new MemoryStream();
+            Mock<IEmbeddedResourcesService> mockEmbeddedResourcesService = _mockRepository.Create<IEmbeddedResourcesService>();
+            mockEmbeddedResourcesService.
+                Setup(e => e.ReadAsStream(typeof(PrismService).Assembly, PrismService.BUNDLE_NAME)).
+                Returns(dummyStream);
+            Mock<INodeJSService> mockNodeJSService = _mockRepository.Create<INodeJSService>();
+            mockNodeJSService.
+                Setup(n => n.TryInvokeFromCacheAsync<string>(PrismService.MODULE_CACHE_IDENTIFIER,
+                    "highlight",
+                    It.Is<object[]>(arr => arr[0].Equals(dummyCode) && arr[1].Equals(dummyLanguageAlias)),
+                    default(CancellationToken))).
+                ReturnsAsync((false, null));
+            mockNodeJSService.
+                Setup(n => n.InvokeFromStreamAsync<string>(dummyStream,
+                    PrismService.MODULE_CACHE_IDENTIFIER,
+                    "highlight",
+                    It.Is<object[]>(arr => arr[0].Equals(dummyCode) && arr[1].Equals(dummyLanguageAlias)),
+                    default(CancellationToken))).
+                ReturnsAsync(dummyHighlightedCode);
+            Mock<PrismService> mockPrismService = CreateMockPrismService(mockNodeJSService.Object, mockEmbeddedResourcesService.Object);
             mockPrismService.CallBase = true;
             mockPrismService.Setup(p => p.IsValidLanguageAliasAsync(dummyLanguageAlias)).ReturnsAsync(true);
 
@@ -156,9 +178,21 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             bool expectedResult)
         {
             // Arrange
-            Mock<INodeServices> mockNodeServices = _mockRepository.Create<INodeServices>();
-            mockNodeServices.Setup(n => n.InvokeExportAsync<string[]>(PrismService.BUNDLE, "getAliases")).ReturnsAsync(dummyAliases);
-            PrismService prismService = CreatePrismService(mockNodeServices.Object);
+            var dummyStream = new MemoryStream();
+            Mock<IEmbeddedResourcesService> mockEmbeddedResourcesService = _mockRepository.Create<IEmbeddedResourcesService>();
+            mockEmbeddedResourcesService.
+                Setup(e => e.ReadAsStream(typeof(PrismService).Assembly, PrismService.BUNDLE_NAME)).
+                Returns(dummyStream);
+            Mock<INodeJSService> mockNodeJSService = _mockRepository.Create<INodeJSService>();
+            mockNodeJSService.
+                Setup(n => n.InvokeFromStreamAsync<string[]>(
+                    dummyStream,
+                    PrismService.MODULE_CACHE_IDENTIFIER,
+                    "getAliases",
+                    null,
+                    default(CancellationToken))).
+                ReturnsAsync(dummyAliases);
+            PrismService prismService = CreatePrismService(mockNodeJSService.Object, mockEmbeddedResourcesService.Object);
 
             // Act
             bool result = await prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
@@ -191,33 +225,14 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        [Fact]
-        public async Task IsValidLanguageAlias_ThrowsExceptionIfANodeErrorOccurs()
+        private PrismService CreatePrismService(INodeJSService nodeJSService = null, IEmbeddedResourcesService  embeddedResourcesService = null)
         {
-            // Arrange
-            const string dummyLanguageAlias = "dummyLanguageAlias";
-            var dummyNodeInvocationException = new NodeInvocationException("", "");
-            var dummyAggregateException = new AggregateException("", dummyNodeInvocationException);
-            Mock<INodeServices> mockNodeServices = _mockRepository.Create<INodeServices>();
-            mockNodeServices.Setup(n => n.InvokeExportAsync<string[]>(PrismService.BUNDLE, "getAliases")).ThrowsAsync(dummyAggregateException);
-            PrismService prismService = CreatePrismService(mockNodeServices.Object);
-
-            // Act and assert
-            NodeInvocationException result = await Assert.
-                ThrowsAsync<NodeInvocationException>(async () => await prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false)).
-                ConfigureAwait(false);
-            Assert.Same(dummyNodeInvocationException, result);
-            _mockRepository.VerifyAll();
+            return new PrismService(nodeJSService, embeddedResourcesService);
         }
 
-        private PrismService CreatePrismService(INodeServices nodeServices = null)
+        private Mock<PrismService> CreateMockPrismService(INodeJSService nodeJSService = null, IEmbeddedResourcesService embeddedResourcesService = null)
         {
-            return new PrismService(nodeServices);
-        }
-
-        private Mock<PrismService> CreateMockPrismService(INodeServices nodeServices = null)
-        {
-            return _mockRepository.Create<PrismService>(nodeServices);
+            return _mockRepository.Create<PrismService>(nodeJSService, embeddedResourcesService);
         }
     }
 }

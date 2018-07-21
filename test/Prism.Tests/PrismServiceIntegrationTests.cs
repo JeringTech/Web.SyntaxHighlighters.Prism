@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.NodeServices;
+﻿using Jering.JavascriptUtils.NodeJS;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         public async Task HighlightAsync_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
         {
             // Arrange 
-            IPrismService prismService = await CreatePrismService().ConfigureAwait(false);
+            IPrismService prismService = CreatePrismService();
 
             // Act
             string result = await prismService.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
@@ -67,7 +67,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         public async Task IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
         {
             // Arrange
-            IPrismService prismService = await CreatePrismService().ConfigureAwait(false);
+            IPrismService prismService = CreatePrismService();
 
             // Act
             bool result = await prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
@@ -100,48 +100,24 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        private async Task<IPrismService> CreatePrismService()
+        private IPrismService CreatePrismService()
         {
-            // Since a new container is created for each test, a new INodeServices instance is created as well.
-            // This means that a new node process is started and then disposed of for each test. 
-            // It is cleaner to do things this way, but reconsider if performance becomes an issue.
             var services = new ServiceCollection();
 
             services.AddPrism();
             if (Debugger.IsAttached)
             {
-                // Override INodeServices service registered by AddPrism to enable debugging
-                services.AddNodeServices(options =>
-                {
-                    options.LaunchWithDebugging = true;
-                    options.InvocationTimeoutMilliseconds = 99999999; // -1 doesn't work, once a js breakpoint is hit, the debugger disconnects
-                });
-
-                _serviceProvider = services.BuildServiceProvider();
-
-                // InvokeAsync implicitly starts up a node instance. Adding a break point after InvokeAsync allows
-                // chrome to connect to the debugger
-                INodeServices nodeServices = _serviceProvider.GetRequiredService<INodeServices>();
-                try
-                {
-                    int dummy = await nodeServices.InvokeAsync<int>("").ConfigureAwait(false);
-                }
-                catch
-                {
-                    // Do nothing
-                }
+                services.Configure<NodeJSProcessOptions>(options => options.NodeAndV8Options = "--inspect-brk");
+                services.Configure<OutOfProcessNodeJSServiceOptions>(options => options.TimeoutMS = -1);
             }
-            else
-            {
-                _serviceProvider = services.BuildServiceProvider();
-            }
+            _serviceProvider = services.BuildServiceProvider();
 
             return _serviceProvider.GetRequiredService<IPrismService>();
         }
 
         public void Dispose()
         {
-            // Ensure that NodeServices gets disposed
+            // Ensure that NodeJSService gets disposed
             _serviceProvider?.Dispose();
         }
     }
