@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 {
+    /// <summary>
+    /// The default implementation of <see cref="IPrismService"/>. This implementation uses <see cref="INodeJSService"/> to send Prism syntax highlighting 
+    /// requests to a NodeJS instance.
+    /// </summary>
     public class PrismService : IPrismService, IDisposable
     {
-        internal const string MODULE_CACHE_IDENTIFIER = "Jering.WebUtils.SyntaxHighlighters.Prism";
+        /// <summary>
+        /// The identifier used to cache the Prism bundle in NodeJS. This identifier must be unique, so the namespace is used.
+        /// </summary>
+        internal static string MODULE_CACHE_IDENTIFIER = typeof(PrismService).Namespace;
+
         internal const string BUNDLE_NAME = "bundle.js";
         private readonly INodeJSService _nodeJSService;
         private readonly IEmbeddedResourcesService _embeddedResourcesService;
@@ -20,6 +28,11 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         /// </summary>
         private readonly Lazy<Task<HashSet<string>>> _aliases;
 
+        /// <summary>
+        /// Creats a <see cref="PrismService"/> instance.
+        /// </summary>
+        /// <param name="nodeJSService"></param>
+        /// <param name="embeddedResourcesService"></param>
         public PrismService(INodeJSService nodeJSService, IEmbeddedResourcesService embeddedResourcesService)
         {
             _nodeJSService = nodeJSService;
@@ -27,6 +40,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
             _aliases = new Lazy<Task<HashSet<string>>>(GetAliasesAsync);
         }
 
+        /// <inheritdoc />
         public virtual async Task<string> HighlightAsync(string code, string languageAlias)
         {
             if (code == null)
@@ -63,7 +77,8 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
             }
         }
 
-        public virtual async Task<bool> IsValidLanguageAliasAsync(string languageAlias)
+        /// <inheritdoc />
+        public virtual async ValueTask<bool> IsValidLanguageAliasAsync(string languageAlias)
         {
             if (string.IsNullOrWhiteSpace(languageAlias))
             {
@@ -75,11 +90,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
             return aliases.Contains(languageAlias);
         }
 
-        /// <summary>
-        /// Required for lazy initialization.
-        /// </summary>
-        /// <returns>Aliases.</returns>
-        internal virtual async Task<HashSet<string>> GetAliasesAsync()
+        internal async Task<HashSet<string>> GetAliasesAsync()
         {
             string[] aliases;
             // GetAliasesAsync should only ever be called once, before any highlighting is done by NodeJS. So take this oppurtunity to 
@@ -91,6 +102,9 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
             return new HashSet<string>(aliases);
         }
 
+        /// <summary>
+        /// Disposes of the instance.
+        /// </summary>
         public void Dispose()
         {
             _nodeJSService.Dispose();
