@@ -3,7 +3,16 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/compare/2.0.3...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/compare/2.1.0...HEAD)
+
+## 2.1.0 - Jul 24, 2018
+### Changes
+- Replaced [Microsoft.AspNetCore.NodeServices](https://github.com/aspnet/JavaScriptServices/tree/master/src/Microsoft.AspNetCore.NodeServices) with 
+  [JavascriptUtils.NodeJS](https://github.com/JeremyTCD/JavascriptUtils.NodeJS) for IPC with Node.js.
+- Renamed assembly to Jering.WebUtils.SyntaxHighlighters.Prism.
+### Additions
+- Added XML comments in Nuget package.
+
 
 ## 2.0.3 - Jul 3, 2018
 ### Fixes
