@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageId>JeremyTCD.WebUtils.SyntaxHighlighters.Prism</PackageId>
+        <PackageId>Jering.WebUtils.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
         <Description>Perform Syntax Highlighting in .Net Applications Using the Javascript Library, Prism.</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
@@ -17,7 +17,7 @@
 
     <PropertyGroup>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <CodeAnalysisRuleSet>../../JeremyTCD.WebUtils.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>../../Jering.WebUtils.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
         <BundleName>bundle.js</BundleName>
         <!-- Exclude Javascript\bin and Javascript\node_modules from project - https://github.com/dotnet/cli/issues/7525 -->
         <DefaultItemExcludes>Javascript\bin\**;Javascript\node_modules\**;$(DefaultItemExcludes)</DefaultItemExcludes>

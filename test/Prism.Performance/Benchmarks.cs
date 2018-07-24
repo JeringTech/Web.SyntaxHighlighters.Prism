@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
-namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Performance
+namespace Jering.WebUtils.SyntaxHighlighters.Prism.Performance
 {
     [MemoryDiagnoser]
     public class Benchmarks

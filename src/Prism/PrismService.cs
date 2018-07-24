@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
+namespace Jering.WebUtils.SyntaxHighlighters.Prism
 {
     /// <summary>
     /// The default implementation of <see cref="IPrismService"/>. This implementation uses <see cref="INodeJSService"/> to send Prism syntax highlighting 

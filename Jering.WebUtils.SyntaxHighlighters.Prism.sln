@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism", "src\Prism\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.csproj", "{E088CD42-B7A8-497F-839A-85663C31111D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.WebUtils.SyntaxHighlighters.Prism", "src\Prism\Jering.WebUtils.SyntaxHighlighters.Prism.csproj", "{E088CD42-B7A8-497F-839A-85663C31111D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3AB2F9F-56A4-4414-BE9B-80F5E9EFF1A1}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,14 +11,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		Changelog.md = Changelog.md
-		JeremyTCD.WebUtils.SyntaxHighlighters.Prism.ruleset = JeremyTCD.WebUtils.SyntaxHighlighters.Prism.ruleset
+		Jering.WebUtils.SyntaxHighlighters.Prism.ruleset = Jering.WebUtils.SyntaxHighlighters.Prism.ruleset
 		License.txt = License.txt
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests", "test\Prism.Tests\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests.csproj", "{81755492-9F44-4590-B936-526AD445F9EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.WebUtils.SyntaxHighlighters.Prism.Tests", "test\Prism.Tests\Jering.WebUtils.SyntaxHighlighters.Prism.Tests.csproj", "{81755492-9F44-4590-B936-526AD445F9EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Performance", "test\Prism.Performance\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Performance.csproj", "{520EFB30-B06F-409F-9600-F8B39AD92B3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.WebUtils.SyntaxHighlighters.Prism.Performance", "test\Prism.Performance\Jering.WebUtils.SyntaxHighlighters.Prism.Performance.csproj", "{520EFB30-B06F-409F-9600-F8B39AD92B3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

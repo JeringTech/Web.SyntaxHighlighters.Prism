@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism {
+namespace Jering.WebUtils.SyntaxHighlighters.Prism {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Strings", typeof(Strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Jering.WebUtils.SyntaxHighlighters.Prism.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

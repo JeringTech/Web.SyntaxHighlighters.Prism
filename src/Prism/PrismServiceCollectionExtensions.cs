@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
+namespace Jering.WebUtils.SyntaxHighlighters.Prism
 {
     /// <summary>
     /// Extension methods for setting up Prism in an <see cref="IServiceCollection" />.

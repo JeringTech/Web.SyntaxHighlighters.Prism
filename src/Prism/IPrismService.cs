@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
+namespace Jering.WebUtils.SyntaxHighlighters.Prism
 {
     /// <summary>
     /// A service for performing syntax highlighting using Prism.

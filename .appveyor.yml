@@ -12,7 +12,7 @@ build_script:
 test_script:
 - ps: |
     cd .\test\Prism.Tests
-    dotnet test -c Release -l trx -r ./ --no-build .\JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests.csproj
+    dotnet test -c Release -l trx -r ./ --no-build .\Jering.WebUtils.SyntaxHighlighters.Prism.Tests.csproj
     if($LastExitCode -ne 0){
         throw "Tests failed."
     }

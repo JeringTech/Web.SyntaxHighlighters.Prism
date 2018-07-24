@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
+namespace Jering.WebUtils.SyntaxHighlighters.Prism.Tests
 {
     public class PrismServiceUnitTests
     {
