@@ -29,7 +29,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
         private readonly Lazy<Task<HashSet<string>>> _aliases;
 
         /// <summary>
-        /// Creats a <see cref="PrismService"/> instance.
+        /// Creates a <see cref="PrismService"/> instance.
         /// </summary>
         /// <param name="nodeJSService"></param>
         /// <param name="embeddedResourcesService"></param>
@@ -90,6 +90,9 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
             return aliases.Contains(languageAlias);
         }
 
+        /// <summary>
+        /// Required for lazy initialization.
+        /// </summary>
         internal async Task<HashSet<string>> GetAliasesAsync()
         {
             string[] aliases;
