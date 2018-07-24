@@ -4,20 +4,21 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <PackageId>JeremyTCD.WebUtils.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
-        <Description>A C# Wrapper for the Syntax Highlighter, Prism.</Description>
+        <Description>Perform Syntax Highlighting in .Net Applications Using the Javascript Library, Prism.</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
-        <PackageLicenseUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/blob/master/License.txt</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism</PackageProjectUrl>
-        <PackageReleaseNotes>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/blob/master/Changelog.md</PackageReleaseNotes>
+        <PackageLicenseUrl>$(PackageProjectUrl)/blob/master/License.txt</PackageLicenseUrl>
+        <PackageReleaseNotes>$(PackageProjectUrl)/blob/master/Changelog.md</PackageReleaseNotes>
+        <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
         <PackageTags>prism syntax highlighter</PackageTags>
-        <RepositoryUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>true</IncludeSymbols>
     </PropertyGroup>
 
     <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <CodeAnalysisRuleSet>../../JeremyTCD.WebUtils.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
-        <BundleName>$(AssemblyName).bundle.js</BundleName>
+        <BundleName>bundle.js</BundleName>
         <!-- Exclude Javascript\bin and Javascript\node_modules from project - https://github.com/dotnet/cli/issues/7525 -->
         <DefaultItemExcludes>Javascript\bin\**;Javascript\node_modules\**;$(DefaultItemExcludes)</DefaultItemExcludes>
     </PropertyGroup>
@@ -27,21 +28,13 @@
         <JavascriptOutputs Include="Javascript\bin\$(Configuration)\$(BundleName)" />
         <!-- If any file in JavascriptInputs has changed, fast up-to-date check must indicate that a rebuild is required - https://github.com/dotnet/project-system/pull/2241 -->
         <UpToDateCheckInput Include="@(JavascriptInputs)" />
-        <Content Include="@(JavascriptOutputs)">
-            <!-- Discards Javascript\bin file structure - https://github.com/Microsoft/msbuild/issues/2795 -->
-            <Link>%(Filename)%(Extension)</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <!-- This adds copyToOutput="true" to the corresponding files element in the .nuspec generated for this project. copyToOutput="true" instructs consuming projects to copy this file
-                 to the output directory on build - https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#including-content-in-a-package -->
-            <PackageCopyToOutput>true</PackageCopyToOutput>
-            <!-- Discards Javascript\bin file structure - https://docs.microsoft.com/en-us/nuget/reference/nuspec#using-the-contentfiles-element-for-content-files -->
-            <PackagePath>contentFiles\any\any</PackagePath>
-        </Content>
+        <EmbeddedResource Include="@(JavascriptOutputs)" LogicalName="$(BundleName)" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.0" />
+        <PackageReference Include="Jering.JavascriptUtils.NodeJS" Version="1.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
         <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" PrivateAssets="All" ExcludeAssets="Runtime" />
         <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" PrivateAssets="All" ExcludeAssets="Runtime" />
         <PackageReference Include="Yarn.MSBuild" Version="1.5.2" PrivateAssets="All" ExcludeAssets="Runtime" />
