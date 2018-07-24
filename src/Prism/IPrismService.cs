@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
 {
     /// <summary>
-    /// A service for doing syntax highlighting using Prism.
+    /// A service for performing syntax highlighting using Prism.
     /// </summary>
     public interface IPrismService
     {

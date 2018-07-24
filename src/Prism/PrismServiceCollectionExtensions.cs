@@ -10,7 +10,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism
     public static class PrismServiceCollectionExtensions
     {
         /// <summary>
-        /// Adds Prism services to the an <see cref="IServiceCollection"/>.
+        /// Adds Prism services to an <see cref="IServiceCollection"/>.
         /// </summary>
         /// <param name="services">The target <see cref="IServiceCollection"/>.</param>
         public static IServiceCollection AddPrism(this IServiceCollection services)
