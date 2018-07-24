@@ -1,10 +1,10 @@
 # WebUtils.SyntaxHighlighters.Prism
 [![Build status](https://ci.appveyor.com/api/projects/status/swmelqsuwnw41d0h?svg=true)](https://ci.appveyor.com/project/JeremyTCD/webutils-syntaxhighlighters-prism)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
-[![NuGet](https://img.shields.io/nuget/vpre/JeremyTCD.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/JeremyTCD.WebUtils.SyntaxHighlighters.Prism/)
+[![NuGet](https://img.shields.io/nuget/vpre/Jering.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/Jering.WebUtils.SyntaxHighlighters.Prism/)
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
 
-A C# Wrapper for the Syntax Highlighter, [Prism](https://github.com/PrismJS/prism). 
+Perform Syntax Highlighting in .Net Applications Using the Javascript Library, [Prism](https://github.com/PrismJS/prism). 
 
 ## Overview
 Syntax highlighters add markup to code to facilitate styling. For example, the following code:
@@ -40,16 +40,16 @@ WebUtils.SyntaxHighlighters.Prism allows syntax highlighting to be done by .Net 
 ## Installation
 Using Package Manager:
 ```
-PM> Install-Package JeremyTCD.WebUtils.SyntaxHighlighters.Prism
+PM> Install-Package Jering.WebUtils.SyntaxHighlighters.Prism
 ```
 Using .Net CLI:
 ```
-> dotnet add package JeremyTCD.WebUtils.SyntaxHighlighters.Prism
+> dotnet add package Jering.WebUtils.SyntaxHighlighters.Prism
 ```
 
 ## Usage
 ### Creating `IPrismService` in ASP.NET Apps
-ASP.NET Core has a built in dependency injection (DI) system. This system can handle instantiation and disposal of `IPrismService` instances.
+ASP.NET has a built in dependency injection (DI) system. This system can handle instantiation and disposal of `IPrismService` instances.
 Call `AddPrism` in `Startup.ConfigureServices` to register a service for `IPrismService`:
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -86,17 +86,19 @@ or
 serviceProvider.Dispose(); // Calls Dispose on objects it has instantiated that are disposable
 ```
 `Dispose` kills the spawned Node.js process.
-Note that even if `Dispose` isn't called manually, the service that manages the Node.js process, `INodeService` from [Microsoft.AspNetCore.NodeServices](https://github.com/aspnet/JavaScriptServices/tree/dev/src/Microsoft.AspNetCore.NodeServices), will kill the 
+Note that even if `Dispose` isn't called manually, the service that manages the Node.js process, `INodeJSService` from [Jering.JavascriptUtils.NodeJS](https://github.com/JeremyTCD/JavascriptUtils.NodeJS), will kill the 
 Node.js process when the application shuts down - if the application shuts down gracefully. If the application does not shutdown gracefully, the Node.js process will kill 
-itself when it [detects](https://github.com/aspnet/JavaScriptServices/blob/cf659b3fda367619f3873bd5f0e445698cebe340/src/Microsoft.AspNetCore.NodeServices/TypeScript/Util/ExitWhenParentExits.ts) that its parent has been killed. 
-Essentially, manually disposing of `IHighlightJSService` instances is not mandatory.
+itself when it detects that its parent has been killed. 
+Essentially, manually disposing of `IPrismService` instances is not mandatory.
 
 ### API
 #### IPrismService.HighlightAsync
 ##### Signature
 ```csharp
-public virtual async Task<string> HighlightAsync(string code, string languageAlias)
+Task<string> HighlightAsync(string code, string languageAlias)
 ```
+##### Description
+Highlights code of a specified language.
 ##### Parameters
 - `code`
   - Type: `string`
@@ -111,8 +113,8 @@ Highlighted code.
   - Thrown if `code` is null.
 - `ArgumentException`
   - Thrown if `languageAlias` is not a valid Prism language alias.
-- `NodeInvocationException`
-  - Thrown if a Node error occurs.
+- `InvocationException`
+  - Thrown if a NodeJS error occurs.
 ##### Example
 ```csharp
 string code = @"public string ExampleFunction(string arg)
@@ -126,8 +128,10 @@ string highlightedCode = await prismService.HighlightAsync(code, "csharp");
 #### IPrismService.IsValidLanguageAliasAsync
 ##### Signature
 ```csharp
-public virtual async Task<bool> IsValidLanguageAliasAsync(string languageAlias)
+ValueTask<bool> IsValidLanguageAliasAsync(string languageAlias)
 ```
+##### Description
+Determines whether a language alias is valid.
 ##### Parameters
 - `languageAlias`
   - Type: `string`
@@ -135,8 +139,8 @@ public virtual async Task<bool> IsValidLanguageAliasAsync(string languageAlias)
 ##### Returns
 `true` if `languageAlias` is a valid Prism language alias. Otherwise, `false`.
 ##### Exceptions
-- `NodeInvocationException`
-  - Thrown if a Node error occurs.
+- `InvocationException`
+  - Thrown if a NodeJS error occurs.
 ##### Example
 ```csharp
 bool isValid = await prismService.IsValidLanguageAliasAsync("csharp");
@@ -149,4 +153,4 @@ This project can be built using Visual Studio 2017.
 Contributions are welcome!  
 
 ## About
-Follow [@JeremyTCD](https://twitter.com/intent/user?screen_name=JeremyTCD) for updates.
+Follow [@JeremyTCD](https://twitter.com/JeremyTCD) for updates.
