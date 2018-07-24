@@ -14,7 +14,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
-        public async Task Highlight_ThrowsExceptionIfCodeIsNull()
+        public async Task HighlightAsync_ThrowsExceptionIfCodeIsNull()
         {
             // Arrange
             PrismService prismService = CreatePrismService();
@@ -27,8 +27,8 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         }
 
         [Theory]
-        [MemberData(nameof(Highlight_ReturnsCodeIfCodeIsEmptyOrWhitespace_Data))]
-        public async Task Highlight_ReturnsCodeIfCodeIsEmptyOrWhitespace(string dummyCode)
+        [MemberData(nameof(HighlightAsync_ReturnsCodeIfCodeIsEmptyOrWhitespace_Data))]
+        public async Task HighlightAsync_ReturnsCodeIfCodeIsEmptyOrWhitespace(string dummyCode)
         {
             // Arrange
             PrismService prismService = CreatePrismService();
@@ -40,7 +40,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             Assert.Equal(dummyCode, result);
         }
 
-        public static IEnumerable<object[]> Highlight_ReturnsCodeIfCodeIsEmptyOrWhitespace_Data()
+        public static IEnumerable<object[]> HighlightAsync_ReturnsCodeIfCodeIsEmptyOrWhitespace_Data()
         {
             return new object[][]
             {
@@ -56,7 +56,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         }
 
         [Fact]
-        public async Task Highlight_ThrowsExceptionIfLanguageAliasIsNotAValidPrismLanguageAlias()
+        public async Task HighlightAsync_ThrowsExceptionIfLanguageAliasIsNotAValidPrismLanguageAlias()
         {
             // Arrange
             const string dummyCode = "dummyCode";
@@ -74,7 +74,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         }
 
         [Fact]
-        public async Task Highlight_InvokesFromCacheIfModuleIsCached()
+        public async Task HighlightAsync_InvokesFromCacheIfModuleIsCached()
         {
             // Arrange
             const string dummyCode = "dummyCode";
@@ -100,7 +100,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         }
 
         [Fact]
-        public async Task Highlight_InvokesFromStreamIfModuleIsNotCached()
+        public async Task HighlightAsync_InvokesFromStreamIfModuleIsNotCached()
         {
             // Arrange
             const string dummyCode = "dummyCode";
@@ -138,8 +138,8 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         }
 
         [Theory]
-        [MemberData(nameof(IsValidLanguageAlias_ReturnsFalseIfLanguageAliasIsNullOrWhitespace_Data))]
-        public async Task IsValidLanguageAlias_ReturnsFalseIfLanguageAliasIsNullOrWhitespace(string dummyLanguageAlias)
+        [MemberData(nameof(IsValidLanguageAliasAsync_ReturnsFalseIfLanguageAliasIsNullOrWhitespace_Data))]
+        public async Task IsValidLanguageAliasAsync_ReturnsFalseIfLanguageAliasIsNullOrWhitespace(string dummyLanguageAlias)
         {
             // Arrange
             PrismService prismService = CreatePrismService();
@@ -151,7 +151,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             Assert.False(result);
         }
 
-        public static IEnumerable<object[]> IsValidLanguageAlias_ReturnsFalseIfLanguageAliasIsNullOrWhitespace_Data()
+        public static IEnumerable<object[]> IsValidLanguageAliasAsync_ReturnsFalseIfLanguageAliasIsNullOrWhitespace_Data()
         {
             return new object[][]
             {
@@ -171,8 +171,8 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
         }
 
         [Theory]
-        [MemberData(nameof(IsValidLanguageAlias_IfSuccessfulReturnsTrueIfAliasesContainsLanguageAliasAndFalseIfItDoesNot_Data))]
-        public async Task IsValidLanguageAlias_IfSuccessfulReturnsTrueIfAliasesContainsLanguageAliasAndFalseIfItDoesNot(
+        [MemberData(nameof(IsValidLanguageAliasAsync_IfSuccessfulReturnsTrueIfAliasesContainsLanguageAliasAndFalseIfItDoesNot_Data))]
+        public async Task IsValidLanguageAliasAsync_IfSuccessfulReturnsTrueIfAliasesContainsLanguageAliasAndFalseIfItDoesNot(
             string dummyLanguageAlias,
             string[] dummyAliases,
             bool expectedResult)
@@ -202,7 +202,7 @@ namespace JeremyTCD.WebUtils.SyntaxHighlighters.Prism.Tests
             _mockRepository.VerifyAll();
         }
 
-        public static IEnumerable<object[]> IsValidLanguageAlias_IfSuccessfulReturnsTrueIfAliasesContainsLanguageAliasAndFalseIfItDoesNot_Data()
+        public static IEnumerable<object[]> IsValidLanguageAliasAsync_IfSuccessfulReturnsTrueIfAliasesContainsLanguageAliasAndFalseIfItDoesNot_Data()
         {
             const string dummyLanguageAlias = "dummyLanguageAlias";
 
