@@ -12,7 +12,7 @@ namespace Jering.WebUtils.SyntaxHighlighters.Prism.Performance
         private IPrismService _prismService;
 
         [GlobalSetup(Target = nameof(PrismService_Highlight))]
-        public void NodeJSService_InvokeFromFile_Setup()
+        public void PrismService_Highlight_Setup()
         {
             ServiceCollection services = new ServiceCollection();
             services.AddPrism();
