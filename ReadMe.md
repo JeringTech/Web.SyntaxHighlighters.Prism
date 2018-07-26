@@ -1,10 +1,19 @@
-# WebUtils.SyntaxHighlighters.Prism
+# Jering.WebUtils.SyntaxHighlighters.Prism
 [![Build status](https://ci.appveyor.com/api/projects/status/swmelqsuwnw41d0h?svg=true)](https://ci.appveyor.com/project/JeremyTCD/webutils-syntaxhighlighters-prism)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
 [![NuGet](https://img.shields.io/nuget/vpre/Jering.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/Jering.WebUtils.SyntaxHighlighters.Prism/)
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
 
 Perform Syntax Highlighting in .Net Applications Using the Javascript Library, [Prism](https://github.com/PrismJS/prism). 
+
+## Table of Contents
+[Overview](#overview)  
+[Prerequisites](#prerequisites)  
+[Installation](#installation)  
+[Usage](#usage)  
+[Building](#building)  
+[Contributing](#contributing)  
+[About](#about)
 
 ## Overview
 Syntax highlighters add markup to code to facilitate styling. For example, the following code:
