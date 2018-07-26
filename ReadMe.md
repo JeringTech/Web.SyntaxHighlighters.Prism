@@ -4,12 +4,12 @@
 [![NuGet](https://img.shields.io/nuget/vpre/Jering.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/Jering.WebUtils.SyntaxHighlighters.Prism/)
 <!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
 
-Perform Syntax Highlighting in .Net Applications Using the Javascript Library, [Prism](https://github.com/PrismJS/prism). 
 
 ## Table of Contents
 [Overview](#overview)  
 [Prerequisites](#prerequisites)  
 [Installation](#installation)  
+[Concepts](#concepts)  
 [Usage](#usage)  
 [Building](#building)  
 [Related Projects](#related-projects)  
@@ -17,6 +17,23 @@ Perform Syntax Highlighting in .Net Applications Using the Javascript Library, [
 [About](#about)
 
 ## Overview
+This library provides a way to perform syntax highlighting in .Net applications using the javascript library, [Prism](https://github.com/PrismJS/prism). 
+
+## Prerequisites
+[Node.js](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
+
+## Installation
+Using Package Manager:
+```
+PM> Install-Package Jering.WebUtils.SyntaxHighlighters.Prism
+```
+Using .Net CLI:
+```
+> dotnet add package Jering.WebUtils.SyntaxHighlighters.Prism
+```
+
+## Concepts
+### What is a Syntax Highlighter?
 Syntax highlighters add markup to code to facilitate styling. For example, the following code:
 
 ```csharp
@@ -42,20 +59,7 @@ Prism is a a javascript library, which is ideal since syntax highlighting is oft
 - When page load time is critical.
 - When page size is critical.
 
-WebUtils.SyntaxHighlighters.Prism allows syntax highlighting to be done by .Net server-side applications and tools like static site generators.
-
-## Prerequisites
-[Node.js](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
-
-## Installation
-Using Package Manager:
-```
-PM> Install-Package Jering.WebUtils.SyntaxHighlighters.Prism
-```
-Using .Net CLI:
-```
-> dotnet add package Jering.WebUtils.SyntaxHighlighters.Prism
-```
+This library allows syntax highlighting to be done by .Net server-side applications and tools like static site generators.
 
 ## Usage
 ### Creating `IPrismService` in ASP.NET Apps
