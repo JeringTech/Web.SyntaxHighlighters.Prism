@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace Jering.WebUtils.SyntaxHighlighters.Prism
 {
     /// <summary>
-    /// A service for performing syntax highlighting using Prism.
+    /// An abstraction for performing syntax highlighting using Prism.
     /// </summary>
     public interface IPrismService
     {
