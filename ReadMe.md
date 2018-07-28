@@ -11,6 +11,7 @@
 [Installation](#installation)  
 [Concepts](#concepts)  
 [Usage](#usage)  
+[API](#api)  
 [Building](#building)  
 [Related Projects](#related-projects)  
 [Contributing](#contributing)  
@@ -20,7 +21,7 @@
 This library provides a way to perform syntax highlighting in .Net applications using the javascript library, [Prism](https://github.com/PrismJS/prism). 
 
 ## Prerequisites
-[Node.js](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
+[NodeJS](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
 
 ## Installation
 Using Package Manager:
@@ -62,34 +63,20 @@ Prism is a a javascript library, which is ideal since syntax highlighting is oft
 This library allows syntax highlighting to be done by .Net server-side applications and tools like static site generators.
 
 ## Usage
-### Creating `IPrismService` in ASP.NET Apps
-ASP.NET has a built in dependency injection (DI) system. This system can handle instantiation and disposal of `IPrismService` instances.
-Call `AddPrism` in `Startup.ConfigureServices` to register a service for `IPrismService`:
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddPrism();
-}
-```
-You can then inject `IPrismService` into controllers:
-```csharp
-public MyController(IPrismService prismService)
-{
-    _prismService = prismService;
-}
-```
-
-### Creating `IPrismService` in non-ASP.NET Apps
-In non-ASP.NET projects, you'll have to create your own DI container. For example, using [Microsoft.Extensions.DependencyInjection](https://github.com/aspnet/DependencyInjection):
+### Creating IPrismService
+This library uses depedency injection (DI) to facilitate extensibility and testability.
+You can use any DI framework that has adapters for [Microsoft.Extensions.DependencyInjection](https://github.com/aspnet/DependencyInjection).
+Here, we'll use the vanilla Microsoft.Extensions.DependencyInjection framework:
 ```csharp
 var services = new ServiceCollection();
 services.AddPrism();
 ServiceProvider serviceProvider = services.BuildServiceProvider();
 IPrismService prismService = serviceProvider.GetRequiredService<IPrismService>();
 ```
+
 `IPrismService` is a singleton service and `IPrismService`'s members are thread safe.
 Where possible, inject `IPrismService` into your types or keep a reference to a shared `IPrismService` instance. 
-Try to avoid creating multiple `IPrismService` instances, since each instance spawns a Node.js process. 
+Try to avoid creating multiple `IPrismService` instances, since each instance spawns a NodeJS process. 
 
 When you're done, you can manually dispose of an `IPrismService` instance by calling
 ```csharp
@@ -99,37 +86,14 @@ or
 ```csharp
 serviceProvider.Dispose(); // Calls Dispose on objects it has instantiated that are disposable
 ```
-`Dispose` kills the spawned Node.js process.
-Note that even if `Dispose` isn't called manually, the service that manages the Node.js process, `INodeJSService` from [Jering.JavascriptUtils.NodeJS](https://github.com/JeremyTCD/JavascriptUtils.NodeJS), will kill the 
-Node.js process when the application shuts down - if the application shuts down gracefully. If the application does not shutdown gracefully, the Node.js process will kill 
+`Dispose` kills the spawned NodeJS process.
+Note that even if `Dispose` isn't called manually, the service that manages the NodeJS process, `INodeJSService` from [Jering.JavascriptUtils.NodeJS](https://github.com/JeremyTCD/JavascriptUtils.NodeJS), will kill the 
+NodeJS process when the application shuts down - if the application shuts down gracefully. If the application does not shutdown gracefully, the NodeJS process will kill 
 itself when it detects that its parent has been killed. 
 Essentially, manually disposing of `IPrismService` instances is not mandatory.
 
-### API
-#### IPrismService.HighlightAsync
-##### Signature
-```csharp
-Task<string> HighlightAsync(string code, string languageAlias)
-```
-##### Description
-Highlights code of a specified language.
-##### Parameters
-- `code`
-  - Type: `string`
-  - Description: Code to highlight.
-- `languageAlias`
-  - Type: `string`
-  - Description: A Prism language alias. Visit https://prismjs.com/index.html#languages-list for the list of valid language aliases.
-##### Returns
-Highlighted code.
-##### Exceptions
-- `ArgumentNullException`
-  - Thrown if `code` is null.
-- `ArgumentException`
-  - Thrown if `languageAlias` is not a valid Prism language alias.
-- `InvocationException`
-  - Thrown if a NodeJS error occurs.
-##### Example
+### Using IPrismService
+Code can be highlighted using [`IPrismService.HighlightAsync`](#iprismservice.highlightasync):
 ```csharp
 string code = @"public string ExampleFunction(string arg)
 {
@@ -139,23 +103,60 @@ string code = @"public string ExampleFunction(string arg)
 
 string highlightedCode = await prismService.HighlightAsync(code, "csharp");
 ```
-#### IPrismService.IsValidLanguageAliasAsync
-##### Signature
+Note the second parameter of `IPrismService.HighlightAsync`. It must be a valid [Prism language alias](https://prismjs.com/index.html#languages-list) representing the 
+code's language.
+
+## API
+### IPrismService.HighlightAsync
+#### Signature
+```csharp
+Task<string> HighlightAsync(string code, string languageAlias)
+```
+#### Description
+Highlights code of a specified language.
+#### Parameters
+- `code`
+  - Type: `string`
+  - Description: Code to highlight.
+- `languageAlias`
+  - Type: `string`
+  - Description: A Prism language alias. Visit https://prismjs.com/index.html#languages-list for the list of valid language aliases.
+#### Returns
+Highlighted code.
+#### Exceptions
+- `ArgumentNullException`
+  - Thrown if `code` is null.
+- `ArgumentException`
+  - Thrown if `languageAlias` is not a valid Prism language alias.
+- `InvocationException`
+  - Thrown if a NodeJS error occurs.
+#### Example
+```csharp
+string code = @"public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + ""dummyString"";
+}";
+
+string highlightedCode = await prismService.HighlightAsync(code, "csharp");
+```
+### IPrismService.IsValidLanguageAliasAsync
+#### Signature
 ```csharp
 ValueTask<bool> IsValidLanguageAliasAsync(string languageAlias)
 ```
-##### Description
+#### Description
 Determines whether a language alias is valid.
-##### Parameters
+#### Parameters
 - `languageAlias`
   - Type: `string`
   - Description: Language alias to validate. Visit https://prismjs.com/index.html#languages-list for the list of valid language aliases.
-##### Returns
+#### Returns
 `true` if `languageAlias` is a valid Prism language alias. Otherwise, `false`.
-##### Exceptions
+#### Exceptions
 - `InvocationException`
   - Thrown if a NodeJS error occurs.
-##### Example
+#### Example
 ```csharp
 bool isValid = await prismService.IsValidLanguageAliasAsync("csharp");
 ```
