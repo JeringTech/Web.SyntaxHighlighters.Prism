@@ -3,7 +3,13 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Web.SyntaxHighlighters.Prism/compare/2.1.0...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Web.SyntaxHighlighters.Prism/compare/3.0.0...HEAD)
+
+## 3.0.0 - Aug 6, 2018
+### Changes
+- Renamed project to `Jering.Web.SyntaxHighlighters.Prism` for consistency with other `Jering` packages. Using statements must be updated to reference types from the
+namespace `Jering.Web.SyntaxHighlighters.Prism` instead of `Jering.WebUtils.SyntaxHighlighters.Prism`.
+- Added .NET Standard 1.3 as a target framework.
 
 ## 2.1.0 - Jul 24, 2018
 ### Changes
