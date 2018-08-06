@@ -1,10 +1,10 @@
-﻿using Jering.JavascriptUtils.NodeJS;
+﻿using Jering.Javascript.NodeJS;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Jering.WebUtils.SyntaxHighlighters.Prism
+namespace Jering.Web.SyntaxHighlighters.Prism
 {
     /// <summary>
     /// The default implementation of <see cref="IPrismService"/>. This implementation uses <see cref="INodeJSService"/> to send Prism syntax highlighting 

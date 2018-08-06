@@ -1,9 +1,8 @@
-# Jering.WebUtils.SyntaxHighlighters.Prism
-[![Build status](https://ci.appveyor.com/api/projects/status/swmelqsuwnw41d0h?svg=true)](https://ci.appveyor.com/project/JeremyTCD/webutils-syntaxhighlighters-prism)
+# Jering.Web.SyntaxHighlighters.Prism
+[![Build status](https://ci.appveyor.com/api/projects/status/swmelqsuwnw41d0h?svg=true)](https://ci.appveyor.com/project/JeremyTCD/web-syntaxhighlighters-prism)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
-[![NuGet](https://img.shields.io/nuget/vpre/Jering.WebUtils.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/Jering.WebUtils.SyntaxHighlighters.Prism/)
-<!-- TODO tests badge, this service should work - https://github.com/monkey3310/appveyor-shields-badges/blob/master/README.md -->
-
+[![NuGet](https://img.shields.io/nuget/vpre/Jering.Web.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/Jering.Web.SyntaxHighlighters.Prism/)
+<!-- TODO tests badge, this service should work -  [![Tests status](https://appveyor-shields-badge.herokuapp.com/api/testResults/jeremytcd/web-syntaxhighlighters-prism/badge.svg)](https://ci.appveyor.com/project/jeremytcd/web-syntaxhighlighters-prism) -->
 
 ## Table of Contents
 [Overview](#overview)  
@@ -26,11 +25,11 @@ This library provides a way to perform syntax highlighting in .Net applications 
 ## Installation
 Using Package Manager:
 ```
-PM> Install-Package Jering.WebUtils.SyntaxHighlighters.Prism
+PM> Install-Package Jering.Web.SyntaxHighlighters.Prism
 ```
 Using .Net CLI:
 ```
-> dotnet add package Jering.WebUtils.SyntaxHighlighters.Prism
+> dotnet add package Jering.Web.SyntaxHighlighters.Prism
 ```
 
 ## Concepts
@@ -87,7 +86,7 @@ or
 serviceProvider.Dispose(); // Calls Dispose on objects it has instantiated that are disposable
 ```
 `Dispose` kills the spawned NodeJS process.
-Note that even if `Dispose` isn't called manually, the service that manages the NodeJS process, `INodeJSService` from [Jering.JavascriptUtils.NodeJS](https://github.com/JeremyTCD/JavascriptUtils.NodeJS), will kill the 
+Note that even if `Dispose` isn't called manually, the service that manages the NodeJS process, `INodeJSService` from [Jering.Javascript.NodeJS](https://github.com/JeremyTCD/Javascript.NodeJS), will kill the 
 NodeJS process when the application shuts down - if the application shuts down gracefully. If the application does not shutdown gracefully, the NodeJS process will kill 
 itself when it detects that its parent has been killed. 
 Essentially, manually disposing of `IPrismService` instances is not mandatory.
@@ -166,12 +165,12 @@ This project can be built using Visual Studio 2017.
 
 ## Related Projects
 #### Similar Projects
-[Jering.WebUtils.SyntaxHighlighters.HighlightJS](https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.HighlightJS) - 
+[Jering.Web.SyntaxHighlighters.HighlightJS](https://github.com/JeremyTCD/Web.SyntaxHighlighters.HighlightJS) - 
 A C# Wrapper for the Syntax Highlighter, HighlightJS.
 #### Projects Using this Library
 [Jering.Markdig.Extensions.FlexiBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks) - A Collection of Flexible Markdig Extensions.
 #### Projects this Library Uses
-[Jering.JavascriptUtils.NodeJS](https://github.com/JeremyTCD/JavascriptUtils.NodeJS) - A Tool for Invoking Javascript from C#.
+[Jering.Javascript.NodeJS](https://github.com/JeremyTCD/Javascript.NodeJS) - Invoke Javascript in NodeJS from C#.
 
 ## Contributing
 Contributions are welcome!  

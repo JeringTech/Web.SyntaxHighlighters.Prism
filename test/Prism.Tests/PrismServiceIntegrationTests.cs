@@ -1,4 +1,4 @@
-﻿using Jering.JavascriptUtils.NodeJS;
+﻿using Jering.Javascript.NodeJS;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Jering.WebUtils.SyntaxHighlighters.Prism.Tests
+namespace Jering.Web.SyntaxHighlighters.Prism.Tests
 {
     public class PrismServiceIntegrationTests : IDisposable
     {

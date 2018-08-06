@@ -1,4 +1,4 @@
-﻿using Jering.JavascriptUtils.NodeJS;
+﻿using Jering.Javascript.NodeJS;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Jering.WebUtils.SyntaxHighlighters.Prism.Tests
+namespace Jering.Web.SyntaxHighlighters.Prism.Tests
 {
     public class PrismServiceUnitTests
     {

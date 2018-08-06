@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Running;
 
-namespace Jering.WebUtils.SyntaxHighlighters.Prism.Performance
+namespace Jering.Web.SyntaxHighlighters.Prism.Performance
 {
     public class Program
     {

@@ -1,8 +1,8 @@
-﻿using Jering.JavascriptUtils.NodeJS;
+﻿using Jering.Javascript.NodeJS;
 using System;
 using System.Threading.Tasks;
 
-namespace Jering.WebUtils.SyntaxHighlighters.Prism
+namespace Jering.Web.SyntaxHighlighters.Prism
 {
     /// <summary>
     /// An abstraction for performing syntax highlighting using Prism.

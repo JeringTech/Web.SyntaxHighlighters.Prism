@@ -3,7 +3,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism/compare/2.1.0...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Web.SyntaxHighlighters.Prism/compare/2.1.0...HEAD)
 
 ## 2.1.0 - Jul 24, 2018
 ### Changes

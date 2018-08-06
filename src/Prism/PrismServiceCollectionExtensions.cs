@@ -1,8 +1,8 @@
-﻿using Jering.JavascriptUtils.NodeJS;
+﻿using Jering.Javascript.NodeJS;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Jering.WebUtils.SyntaxHighlighters.Prism
+namespace Jering.Web.SyntaxHighlighters.Prism
 {
     /// <summary>
     /// Extension methods for setting up Prism in an <see cref="IServiceCollection" />.

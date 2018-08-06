@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <PackageId>Jering.WebUtils.SyntaxHighlighters.Prism</PackageId>
+        <PackageId>Jering.Web.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
         <Description>A C# Wrapper for the Syntax Highlighter, Prism.</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
-        <PackageProjectUrl>https://github.com/JeremyTCD/WebUtils.SyntaxHighlighters.Prism</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/JeremyTCD/Web.SyntaxHighlighters.Prism</PackageProjectUrl>
         <PackageLicenseUrl>$(PackageProjectUrl)/blob/master/License.txt</PackageLicenseUrl>
         <PackageReleaseNotes>$(PackageProjectUrl)/blob/master/Changelog.md</PackageReleaseNotes>
         <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
@@ -17,7 +17,7 @@
 
     <PropertyGroup>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <CodeAnalysisRuleSet>../../Jering.WebUtils.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
+        <CodeAnalysisRuleSet>../../Jering.Web.SyntaxHighlighters.Prism.ruleset</CodeAnalysisRuleSet>
         <BundleName>bundle.js</BundleName>
         <!-- Exclude Javascript\bin and Javascript\node_modules from project - https://github.com/dotnet/cli/issues/7525 -->
         <DefaultItemExcludes>Javascript\bin\**;Javascript\node_modules\**;$(DefaultItemExcludes)</DefaultItemExcludes>
@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Jering.JavascriptUtils.NodeJS" Version="0.1.0" />
+        <PackageReference Include="Jering.Javascript.NodeJS" Version="3.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
         <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" PrivateAssets="All" ExcludeAssets="Runtime" />
