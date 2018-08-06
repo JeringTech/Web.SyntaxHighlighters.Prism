@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using System.Reflection;
 
 namespace Jering.Web.SyntaxHighlighters.Prism.Tests
 {
@@ -109,7 +110,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             var dummyStream = new MemoryStream();
             Mock<IEmbeddedResourcesService> mockEmbeddedResourcesService = _mockRepository.Create<IEmbeddedResourcesService>();
             mockEmbeddedResourcesService.
-                Setup(e => e.ReadAsStream(typeof(PrismService).Assembly, PrismService.BUNDLE_NAME)).
+                Setup(e => e.ReadAsStream(typeof(PrismService).GetTypeInfo().Assembly, PrismService.BUNDLE_NAME)).
                 Returns(dummyStream);
             Mock<INodeJSService> mockNodeJSService = _mockRepository.Create<INodeJSService>();
             mockNodeJSService.
@@ -181,7 +182,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             var dummyStream = new MemoryStream();
             Mock<IEmbeddedResourcesService> mockEmbeddedResourcesService = _mockRepository.Create<IEmbeddedResourcesService>();
             mockEmbeddedResourcesService.
-                Setup(e => e.ReadAsStream(typeof(PrismService).Assembly, PrismService.BUNDLE_NAME)).
+                Setup(e => e.ReadAsStream(typeof(PrismService).GetTypeInfo().Assembly, PrismService.BUNDLE_NAME)).
                 Returns(dummyStream);
             Mock<INodeJSService> mockNodeJSService = _mockRepository.Create<INodeJSService>();
             mockNodeJSService.

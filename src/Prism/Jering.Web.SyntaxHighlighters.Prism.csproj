@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
         <PackageId>Jering.Web.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
         <Description>A C# Wrapper for the Syntax Highlighter, Prism.</Description>
@@ -10,7 +10,7 @@
         <PackageLicenseUrl>$(PackageProjectUrl)/blob/master/License.txt</PackageLicenseUrl>
         <PackageReleaseNotes>$(PackageProjectUrl)/blob/master/Changelog.md</PackageReleaseNotes>
         <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
-        <PackageTags>prism syntax highlighter</PackageTags>
+        <PackageTags>syntax highlighter</PackageTags>
         <RepositoryType>git</RepositoryType>
         <IncludeSymbols>true</IncludeSymbols>
     </PropertyGroup>
@@ -33,19 +33,29 @@
 
     <ItemGroup>
         <PackageReference Include="Jering.Javascript.NodeJS" Version="3.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
         <PackageReference Include="Roslynator.Analyzers" Version="1.8.0" PrivateAssets="All" ExcludeAssets="Runtime" />
         <PackageReference Include="Roslynator.CodeFixes" Version="1.8.0" PrivateAssets="All" ExcludeAssets="Runtime" />
         <PackageReference Include="Yarn.MSBuild" Version="1.5.2" PrivateAssets="All" ExcludeAssets="Runtime" />
     </ItemGroup>
 
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
+    </ItemGroup>
+
     <ItemGroup>
-        <Compile Update="Strings.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Strings.resx</DependentUpon>
-        </Compile>
+      <Compile Update="Strings.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Strings.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
         <EmbeddedResource Update="Strings.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Strings.Designer.cs</LastGenOutput>
@@ -53,7 +63,7 @@
     </ItemGroup>
 
     <!-- Restores JS packages and builds bundle -->
-    <Target Name="JavascriptBuild" BeforeTargets="BeforeBuild" Inputs="@(JavascriptInputs)" Outputs="@(JavascriptOutputs)">
+    <Target Name="JavascriptBuild" BeforeTargets="DispatchToInnerBuilds" Inputs="@(JavascriptInputs)" Outputs="@(JavascriptOutputs)">
         <Yarn WorkingDirectory=".\Javascript" Command="run build --env.mode=$(Configuration) --env.bundleName=$(BundleName)" />
     </Target>
 

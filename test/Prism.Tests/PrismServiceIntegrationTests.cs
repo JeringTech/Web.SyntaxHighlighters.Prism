@@ -10,7 +10,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
 {
     public class PrismServiceIntegrationTests : IDisposable
     {
-        private ServiceProvider _serviceProvider;
+        private IServiceProvider _serviceProvider;
 
         [Theory]
         [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
@@ -118,7 +118,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
         public void Dispose()
         {
             // Ensure that NodeJSService gets disposed
-            _serviceProvider?.Dispose();
+            ((IDisposable)_serviceProvider).Dispose();
         }
     }
 }

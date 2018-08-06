@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Jering.Web.SyntaxHighlighters.Prism
@@ -69,7 +70,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism
             }
 
             // Invoke from stream since module is not cached
-            using (Stream moduleStream = _embeddedResourcesService.ReadAsStream(typeof(PrismService).Assembly, BUNDLE_NAME))
+            using (Stream moduleStream = _embeddedResourcesService.ReadAsStream(typeof(PrismService).GetTypeInfo().Assembly, BUNDLE_NAME))
             {
                 // Invoking from stream is 2+x faster than reading the resource as a string and invoking as string. This is because invoking as string causes almost 
                 // 1000x more memory to be allocated, resulting in gen 1+ gcs.
@@ -98,7 +99,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism
             string[] aliases;
             // GetAliasesAsync should only ever be called once, before any highlighting is done by NodeJS. So take this oppurtunity to 
             // cache the module.
-            using (Stream moduleStream = _embeddedResourcesService.ReadAsStream(typeof(PrismService).Assembly, BUNDLE_NAME))
+            using (Stream moduleStream = _embeddedResourcesService.ReadAsStream(typeof(PrismService).GetTypeInfo().Assembly, BUNDLE_NAME))
             {
                 aliases = await _nodeJSService.InvokeFromStreamAsync<string[]>(moduleStream, MODULE_CACHE_IDENTIFIER, "getAliases").ConfigureAwait(false);
             }

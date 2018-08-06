@@ -6,6 +6,7 @@
 
 ## Table of Contents
 [Overview](#overview)  
+[Target Frameworks](#target-frameworks)  
 [Prerequisites](#prerequisites)  
 [Installation](#installation)  
 [Concepts](#concepts)  
@@ -19,6 +20,10 @@
 ## Overview
 This library provides a way to perform syntax highlighting in .Net applications using the javascript library, [Prism](https://github.com/PrismJS/prism). 
 
+## Target Frameworks
+- .NET Standard 1.3
+- .NET Standard 2.0
+ 
 ## Prerequisites
 [NodeJS](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
 
