@@ -107,8 +107,7 @@ string code = @"public string ExampleFunction(string arg)
 
 string highlightedCode = await prismService.HighlightAsync(code, "csharp");
 ```
-Note the second parameter of `IPrismService.HighlightAsync`. It must be a valid [Prism language alias](https://prismjs.com/index.html#languages-list) representing the 
-code's language.
+The second parameter of `IPrismService.HighlightAsync` must be a valid [Prism language alias](https://prismjs.com/index.html#languages-list).
 
 ## API
 ### IPrismService.HighlightAsync
