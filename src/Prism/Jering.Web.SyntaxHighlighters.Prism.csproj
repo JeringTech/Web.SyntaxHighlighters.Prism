@@ -4,7 +4,8 @@
         <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
         <PackageId>Jering.Web.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
-        <Description>A C# Wrapper for the Syntax Highlighter, Prism.</Description>
+        <Title>Use the Syntax Highlighter, Prism, from C#.</Title>
+        <Description>This library provides ways to perform syntax highlighting in .Net applications using the javascript library, Prism.</Description>
         <Copyright>© JeremyTCD. All rights reserved.</Copyright>
         <PackageProjectUrl>https://github.com/JeremyTCD/Web.SyntaxHighlighters.Prism</PackageProjectUrl>
         <PackageLicenseUrl>$(PackageProjectUrl)/blob/master/License.txt</PackageLicenseUrl>
