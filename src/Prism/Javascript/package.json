@@ -1,12 +1,11 @@
 {
-    "private":  true,
+    "private": true,
     "scripts": {
         "build": "echo. && echo Yarn Install: && yarn install && echo. && echo Webpack: && webpack"
     },
     "dependencies": {
-        "prismjs": "^1.14.0",
-        "webpack": "^4.11.1",
-        "webpack-cli": "^3.0.2",
-        "yargs": "^11.0.0"
+        "prismjs": "^1.15.0",
+        "webpack": "^4.26.1",
+        "webpack-cli": "^3.1.2"
     }
 }

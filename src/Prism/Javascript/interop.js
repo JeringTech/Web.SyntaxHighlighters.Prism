@@ -1,10 +1,9 @@
 ﻿var Prism = require('prismjs');
-var PrismLanguageLoader = require('prismjs/components/index.js');
 var components = require('prismjs/components.js');
 
 // Get all language names for use in getAliases
 var languageNames = Object.keys(components.languages).filter(languageName => languageName !== 'meta');
-PrismLanguageLoader(languageNames);
+loadLanguages(languageNames);
 
 module.exports = {
     highlight: function (callback, code, languageAlias) {
@@ -34,3 +33,18 @@ module.exports = {
         callback(null /* errors */, result);
     }
 };
+
+// prismjs/compontents/index.js loadLanguages broke for webpack in 1.15.0 (https://github.com/PrismJS/prism/issues/1486). Since we're loading all 
+// languages, use this method to a) get webpack to include all languages, b) load each language at runtime.
+function loadLanguages(names) {
+    if (!Array.isArray(names)) {
+        names = [names];
+    }
+
+    names.forEach(languageName => {
+        if (components.languages[languageName] && components.languages[languageName].require) {
+            loadLanguages(components.languages[languageName].require);
+        }
+        require('prismjs/components/prism-' + languageName);
+    });
+}
