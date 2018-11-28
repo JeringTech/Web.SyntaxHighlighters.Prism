@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Jering.Javascript.NodeJS;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -6,6 +7,23 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
 {
     public class StaticPrismServiceIntegrationTests
     {
+        [Fact]
+        public async void Configure_ConfiguresOptions()
+        {
+            // Act
+            // Highlight once to ensure that an initial PrismService is created. The invocation after configuration should properly dispose of this initial instance and create a new one with the
+            // specified options.
+            await StaticPrismService.IsValidLanguageAliasAsync("csharp").ConfigureAwait(false);
+            StaticPrismService.Configure<OutOfProcessNodeJSServiceOptions>(options => options.TimeoutMS = 0);
+
+            // Assert
+            // Since we set timeout to 0, the NodeJS invocation is gauranteed to timeout. The NodeJS connection attempt is likely to timeout. Both throw an InvocationException.
+            await Assert.ThrowsAsync<InvocationException>(async () => await StaticPrismService.IsValidLanguageAliasAsync("csharp").ConfigureAwait(false)).ConfigureAwait(false);
+
+            // Reset so other tests aren't affected
+            StaticPrismService.Configure<OutOfProcessNodeJSServiceOptions>(options => options.TimeoutMS = 60000);
+        }
+
         [Theory]
         [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
         public async Task HighlightAsync_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
