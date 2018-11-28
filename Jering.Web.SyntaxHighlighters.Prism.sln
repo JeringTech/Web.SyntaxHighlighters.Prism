@@ -7,18 +7,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Web.SyntaxHighlighte
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3AB2F9F-56A4-4414-BE9B-80F5E9EFF1A1}"
 	ProjectSection(SolutionItems) = preProject
-		.appveyor.yml = .appveyor.yml
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
 		Changelog.md = Changelog.md
+		codecov.yml = codecov.yml
 		Jering.Web.SyntaxHighlighters.Prism.ruleset = Jering.Web.SyntaxHighlighters.Prism.ruleset
 		License.txt = License.txt
 		ReadMe.md = ReadMe.md
+		ThirdPartyLicenses.txt = ThirdPartyLicenses.txt
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Web.SyntaxHighlighters.Prism.Tests", "test\Prism.Tests\Jering.Web.SyntaxHighlighters.Prism.Tests.csproj", "{81755492-9F44-4590-B936-526AD445F9EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Web.SyntaxHighlighters.Prism.Tests", "test\Prism\Jering.Web.SyntaxHighlighters.Prism.Tests.csproj", "{81755492-9F44-4590-B936-526AD445F9EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Web.SyntaxHighlighters.Prism.Performance", "test\Prism.Performance\Jering.Web.SyntaxHighlighters.Prism.Performance.csproj", "{520EFB30-B06F-409F-9600-F8B39AD92B3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Web.SyntaxHighlighters.Prism.Performance", "perf\Prism\Jering.Web.SyntaxHighlighters.Prism.Performance.csproj", "{520EFB30-B06F-409F-9600-F8B39AD92B3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,26 +1,17 @@
-﻿using Jering.Javascript.NodeJS;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Jering.Web.SyntaxHighlighters.Prism.Tests
 {
-    public class PrismServiceIntegrationTests : IDisposable
+    public class StaticPrismServiceIntegrationTests
     {
-        private IServiceProvider _serviceProvider;
-
         [Theory]
         [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
         public async Task HighlightAsync_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
         {
-            // Arrange 
-            IPrismService prismService = CreatePrismService();
-
             // Act
-            string result = await prismService.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
+            string result = await StaticPrismService.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -66,11 +57,8 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
         [MemberData(nameof(IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid_Data))]
         public async Task IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
         {
-            // Arrange
-            IPrismService prismService = CreatePrismService();
-
             // Act
-            bool result = await prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
+            bool result = await StaticPrismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -98,27 +86,6 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
                     "non-existent-language", false
                 }
             };
-        }
-
-        private IPrismService CreatePrismService()
-        {
-            var services = new ServiceCollection();
-
-            services.AddPrism();
-            if (Debugger.IsAttached)
-            {
-                services.Configure<NodeJSProcessOptions>(options => options.NodeAndV8Options = "--inspect-brk");
-                services.Configure<OutOfProcessNodeJSServiceOptions>(options => options.TimeoutMS = -1);
-            }
-            _serviceProvider = services.BuildServiceProvider();
-
-            return _serviceProvider.GetRequiredService<IPrismService>();
-        }
-
-        public void Dispose()
-        {
-            // Ensure that NodeJSService gets disposed
-            ((IDisposable)_serviceProvider).Dispose();
         }
     }
 }

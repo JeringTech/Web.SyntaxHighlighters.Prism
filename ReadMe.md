@@ -1,8 +1,8 @@
 # Jering.Web.SyntaxHighlighters.Prism
-[![Build status](https://ci.appveyor.com/api/projects/status/swmelqsuwnw41d0h?svg=true)](https://ci.appveyor.com/project/JeremyTCD/web-syntaxhighlighters-prism)
+[![Build Status](https://dev.azure.com/JeringTech/Web.SyntaxHighlighters.Prism/_apis/build/status/Jering.Web.SyntaxHighlighters.Prism-CI)](https://dev.azure.com/JeringTech/Web.SyntaxHighlighters.Prism/_build/latest?definitionId=1)
+[![codecov](https://codecov.io/gh/JeringTech/Web.SyntaxHighlighters.Prism/branch/master/graph/badge.svg)](https://codecov.io/gh/JeringTech/Web.SyntaxHighlighters.Prism)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Pkcs11Interop/Pkcs11Interop/blob/master/LICENSE.md)
 [![NuGet](https://img.shields.io/nuget/vpre/Jering.Web.SyntaxHighlighters.Prism.svg?label=nuget)](https://www.nuget.org/packages/Jering.Web.SyntaxHighlighters.Prism/)
-<!-- TODO tests badge, this service should work -  [![Tests status](https://appveyor-shields-badge.herokuapp.com/api/testResults/jeremytcd/web-syntaxhighlighters-prism/badge.svg)](https://ci.appveyor.com/project/jeremytcd/web-syntaxhighlighters-prism) -->
 
 ## Table of Contents
 [Overview](#overview)  
@@ -18,11 +18,32 @@
 [About](#about)
 
 ## Overview
-This library provides ways to perform syntax highlighting in .Net applications using the javascript library, [Prism](https://github.com/PrismJS/prism). 
+Jering.Web.SyntaxHighlighters.Prism enables you to perform syntax highlighting from C# projects using the [Prism](https://github.com/PrismJS/prism) library.  
+
+This library provides a dependency injection (DI) base API and a static API. Here is an example usage of the static API:
+
+```csharp
+string code = @"public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + ""dummyString"";
+}";
+
+// Highlight code
+string result = await StaticPrismService.HighlightAsync(code, "csharp");
+
+// result == syntax highlighted code
+string expectedResult = @"<span class=""token keyword"">public</span> <span class=""token keyword"">string</span> <span class=""token function"">ExampleFunction</span><span class=""token punctuation"">(</span><span class=""token keyword"">string</span> arg<span class=""token punctuation"">)</span>
+<span class=""token punctuation"">{</span>
+    <span class=""token comment"">// Example comment</span>
+    <span class=""token keyword"">return</span> arg <span class=""token operator"">+</span> <span class=""token string"">""dummyString""</span><span class=""token punctuation"">;</span>
+<span class=""token punctuation"">}</span>";
+Assert.Equal(expectedResult, result);
+```
 
 ## Target Frameworks
-- .NET Standard 1.3
 - .NET Standard 2.0
+- .NET Framework 4.6.1
  
 ## Prerequisites
 [NodeJS](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
@@ -91,10 +112,22 @@ or
 serviceProvider.Dispose(); // Calls Dispose on objects it has instantiated that are disposable
 ```
 `Dispose` kills the spawned NodeJS process.
-Note that even if `Dispose` isn't called manually, the service that manages the NodeJS process, `INodeJSService` from [Jering.Javascript.NodeJS](https://github.com/JeremyTCD/Javascript.NodeJS), will kill the 
+Note that even if `Dispose` isn't called manually, the service that manages the NodeJS process, `INodeJSService` from [Jering.Javascript.NodeJS](https://github.com/JeringTech/Javascript.NodeJS), will kill the 
 NodeJS process when the application shuts down - if the application shuts down gracefully. If the application does not shutdown gracefully, the NodeJS process will kill 
 itself when it detects that its parent has been killed. 
 Essentially, manually disposing of `IPrismService` instances is not mandatory.
+
+#### Static API
+This library also provides a static API as an alternative. The `StaticPrismService` type wraps an `IPrismService` instance, exposing most of its [public members](#api) statically.
+Whether you use the static API or the DI based API depends on your development needs. If you are already using DI, if you want to mock 
+out syntax highlighting in your tests or if you want to overwrite services, use the DI based API. Otherwise,
+use the static API. An example usage:
+
+```csharp
+string result = await StaticPrismService.HighlightAsync(code, "csharp");
+```
+
+The following section on using `IPrismService` applies to usage of `StaticPrismService`.
 
 ### Using IPrismService
 Code can be highlighted using [`IPrismService.HighlightAsync`](#iprismservice.highlightasync):
@@ -113,7 +146,7 @@ The second parameter of `IPrismService.HighlightAsync` must be a valid [Prism la
 ### IPrismService.HighlightAsync
 #### Signature
 ```csharp
-Task<string> HighlightAsync(string code, string languageAlias)
+Task<string> HighlightAsync(string code, string languageAlias, CancellationToken cancellationToken = default)
 ```
 #### Description
 Highlights code of a specified language.
@@ -124,6 +157,9 @@ Highlights code of a specified language.
 - `languageAlias`
   - Type: `string`
   - Description: A Prism language alias. Visit https://prismjs.com/index.html#languages-list for the list of valid language aliases.
+- `cancellationToken`
+  - Type: `CancellationToken`
+  - Description: The cancellation token for the asynchronous operation.
 #### Returns
 Highlighted code.
 #### Exceptions
@@ -133,6 +169,10 @@ Highlighted code.
   - Thrown if `languageAlias` is not a valid Prism language alias.
 - `InvocationException`
   - Thrown if a NodeJS error occurs.
+- `ObjectDisposedException`
+  - Thrown if this instance has been disposed or if an attempt is made to use one of its dependencies that has been disposed.
+- `OperationCanceledException`
+  - Thrown if `cancellationToken` is cancelled.
 #### Example
 ```csharp
 string code = @"public string ExampleFunction(string arg)
@@ -154,11 +194,18 @@ Determines whether a language alias is valid.
 - `languageAlias`
   - Type: `string`
   - Description: Language alias to validate. Visit https://prismjs.com/index.html#languages-list for the list of valid language aliases.
+- `cancellationToken`
+  - Type: `CancellationToken`
+  - Description: The cancellation token for the asynchronous operation.
 #### Returns
 `true` if `languageAlias` is a valid Prism language alias. Otherwise, `false`.
 #### Exceptions
 - `InvocationException`
   - Thrown if a NodeJS error occurs.
+- `ObjectDisposedException`
+  - Thrown if this instance has been disposed or if an attempt is made to use one of its dependencies that has been disposed.
+- `OperationCanceledException`
+  - Thrown if `cancellationToken` is cancelled.
 #### Example
 ```csharp
 bool isValid = await prismService.IsValidLanguageAliasAsync("csharp");
@@ -167,16 +214,16 @@ bool isValid = await prismService.IsValidLanguageAliasAsync("csharp");
 ## Building
 This project can be built using Visual Studio 2017.
 
-## Related Projects
+## Related Jering Projects
 #### Similar Projects
-[Jering.Web.SyntaxHighlighters.HighlightJS](https://github.com/JeremyTCD/Web.SyntaxHighlighters.HighlightJS) - Use the Syntax Highlighter, HighlightJS, from C#.
+[Jering.Web.SyntaxHighlighters.HighlightJS](https://github.com/JeringTech/Web.SyntaxHighlighters.HighlightJS) - Use the Syntax Highlighter, HighlightJS, from C#.
 #### Projects Using this Library
-[Jering.Markdig.Extensions.FlexiBlocks](https://github.com/JeremyTCD/Markdig.Extensions.FlexiBlocks) - A Collection of Flexible Markdig Extensions.
+[Jering.Markdig.Extensions.FlexiBlocks](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks) - A Collection of Flexible Markdig Extensions.
 #### Projects this Library Uses
-[Jering.Javascript.NodeJS](https://github.com/JeremyTCD/Javascript.NodeJS) - Invoke Javascript in NodeJS, from C#.
+[Jering.Javascript.NodeJS](https://github.com/JeringTech/Javascript.NodeJS) - Invoke Javascript in NodeJS, from C#.
 
 ## Contributing
 Contributions are welcome!  
 
 ## About
-Follow [@JeremyTCD](https://twitter.com/JeremyTCD) for updates and more.
+Follow [@JeringTech](https://twitter.com/JeringTech) for updates and more.

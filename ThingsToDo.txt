@@ -1,3 +1,0 @@
-https://github.com/PrismJS/prism/issues/1171
-https://github.com/jsdom/jsdom
-
