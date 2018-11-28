@@ -20,7 +20,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism
         /// <exception cref="ArgumentException">Thrown if <paramref name="languageAlias"/> is not a valid Prism language alias.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="code"/> is null.</exception>
         /// <exception cref="InvocationException">Thrown if a NodeJS error occurs.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown if this instance or one of its dependencies has been disposed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown if this instance has been disposed or if an attempt is made to use one of its dependencies that has been disposed.</exception>
         /// <exception cref="OperationCanceledException">Thrown if <paramref name="cancellationToken"/> is cancelled.</exception>
         Task<string> HighlightAsync(string code, string languageAlias, CancellationToken cancellationToken = default);
 
@@ -31,7 +31,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism
         /// <param name="cancellationToken">The cancellation token for the asynchronous operation.</param>
         /// <returns>true if the specified language alias is a valid Prism language alias. Otherwise, false.</returns>
         /// <exception cref="InvocationException">Thrown if a NodeJS error occurs.</exception>
-        /// <exception cref="ObjectDisposedException">Thrown if this instance or one of its dependencies has been disposed.</exception>
+        /// <exception cref="ObjectDisposedException">Thrown if this instance has been disposed or if an attempt is made to use one of its dependencies that has been disposed.</exception>
         /// <exception cref="OperationCanceledException">Thrown if <paramref name="cancellationToken"/> is cancelled.</exception>
         Task<bool> IsValidLanguageAliasAsync(string languageAlias, CancellationToken cancellationToken = default);
     }
