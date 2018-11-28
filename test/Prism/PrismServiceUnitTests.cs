@@ -16,6 +16,20 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
 
         [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfNodeJSServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new PrismService(null, _mockRepository.Create<IEmbeddedResourcesService>().Object));
+        }
+
+        [Fact]
+        public void Constructor_ThrowsArgumentNullExceptionIfEmbeddedResourcesServiceIsNull()
+        {
+            // Act and assert
+            Assert.Throws<ArgumentNullException>(() => new PrismService(_mockRepository.Create<INodeJSService>().Object, null));
+        }
+
+        [Fact]
         public async Task HighlightAsync_ThrowsObjectDisposedExceptionIfInstanceHasBeenDisposed()
         {
             // Arrange
@@ -297,6 +311,21 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             {
                 Assert.True(result);
             }
+        }
+
+        [Fact]
+        public void Dispose_DoesNothingIfInstanceIsAlreadyDisposed()
+        {
+            // Arrange
+            Mock<INodeJSService> mockNodeJSService = _mockRepository.Create<INodeJSService>();
+            PrismService testSubject = CreatePrismService(mockNodeJSService.Object);
+
+            // Act
+            testSubject.Dispose();
+            testSubject.Dispose();
+
+            // Assert
+            mockNodeJSService.Verify(n => n.Dispose(), Times.Once());
         }
 
         private PrismService CreatePrismService(INodeJSService nodeJSService = null, IEmbeddedResourcesService embeddedResourcesService = null)
