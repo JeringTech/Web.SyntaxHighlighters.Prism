@@ -137,10 +137,10 @@ namespace Jering.Web.SyntaxHighlighters.Prism
 
             if (disposing)
             {
-                _aliasesSemaphore.Dispose();
+                _aliasesSemaphore?.Dispose();
             }
 
-            _nodeJSService.Dispose(); // _nodeJSService wraps a NodeJS process (an unmanaged resource)
+            _nodeJSService?.Dispose(); // _nodeJSService wraps a NodeJS process (an unmanaged resource)
             _disposed = true;
         }
 
