@@ -14,7 +14,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism
     /// </summary>
     public class PrismService : IPrismService, IDisposable
     {
-        internal static string MODULE_CACHE_IDENTIFIER = typeof(PrismService).Namespace; // This identifier must be unique to this project, so use the namespace
+        internal static readonly string MODULE_CACHE_IDENTIFIER = typeof(PrismService).Namespace; // This identifier must be unique to this project, so use the namespace
         internal const string BUNDLE_NAME = "bundle.js";
 
         private readonly INodeJSService _nodeJSService;
