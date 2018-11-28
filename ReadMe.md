@@ -38,6 +38,7 @@ string expectedResult = @"<span class=""token keyword"">public</span> <span clas
     <span class=""token comment"">// Example comment</span>
     <span class=""token keyword"">return</span> arg <span class=""token operator"">+</span> <span class=""token string"">""dummyString""</span><span class=""token punctuation"">;</span>
 <span class=""token punctuation"">}</span>";
+
 Assert.Equal(expectedResult, result);
 ```
 
