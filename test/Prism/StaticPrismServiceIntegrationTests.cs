@@ -7,7 +7,9 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
 {
     public class StaticPrismServiceIntegrationTests
     {
-        [Fact]
+        private const int _timeoutMS = 60000;
+
+        [Fact(Timeout = _timeoutMS)]
         public async void Configure_ConfiguresOptions()
         {
             // Act
@@ -24,7 +26,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             StaticPrismService.Configure<OutOfProcessNodeJSServiceOptions>(options => options.TimeoutMS = 60000);
         }
 
-        [Theory]
+        [Theory(Timeout = _timeoutMS)]
         [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
         public async Task HighlightAsync_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
         {
@@ -71,7 +73,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        [Theory]
+        [Theory(Timeout = _timeoutMS)]
         [MemberData(nameof(IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid_Data))]
         public async Task IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
         {
