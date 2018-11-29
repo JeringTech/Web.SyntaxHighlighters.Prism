@@ -5,9 +5,9 @@
         <PackageId>Jering.Web.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
         <Title>Use the Syntax Highlighter, Prism, from C#</Title>
-        <Description>Jering.Web.SyntaxHighlighters.Prism enables you to perform syntax highlighting from C# projects using the Prism library.</Description>
-        <Copyright>© JeremyTCD. All rights reserved.</Copyright>
-        <PackageProjectUrl>https://www.jering.tech/utilities/web.syntaxhighlighters.prism</PackageProjectUrl>
+        <Description>Jering.Web.SyntaxHighlighters.Prism enables you to perform syntax highlighting from C# projects using Prism.</Description>
+        <Copyright>© 2018 Jering. All rights reserved.</Copyright>
+        <PackageProjectUrl>https://www.jering.tech/utilities/web.syntaxhighlighters.prism/index</PackageProjectUrl>
         <RepositoryUrl>https://github.com/JeringTech/Web.SyntaxHighlighters.Prism</RepositoryUrl>
         <PackageLicenseUrl>$(RepositoryUrl)/blob/master/License.txt</PackageLicenseUrl>
         <PackageReleaseNotes>$(RepositoryUrl)/blob/master/Changelog.md</PackageReleaseNotes>
@@ -34,7 +34,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Jering.Javascript.NodeJS" Version="4.0.2" />
+        <PackageReference Include="Jering.Javascript.NodeJS" Version="4.0.3" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

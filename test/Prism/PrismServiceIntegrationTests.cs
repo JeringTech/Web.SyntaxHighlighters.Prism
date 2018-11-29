@@ -13,16 +13,17 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
     public class PrismServiceIntegrationTests : IDisposable
     {
         private IServiceProvider _serviceProvider;
+        private const int _timeoutMS = 60000;
 
-        [Theory]
+        [Theory(Timeout = _timeoutMS)]
         [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
         public async Task HighlightAsync_HighlightsCode(string dummyCode, string dummyLanguageAlias, string expectedResult)
         {
             // Arrange 
-            IPrismService prismService = CreatePrismService();
+            IPrismService testSubject = CreatePrismService();
 
             // Act
-            string result = await prismService.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
+            string result = await testSubject.HighlightAsync(dummyCode, dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -64,7 +65,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        [Fact]
+        [Fact(Timeout = _timeoutMS)]
         public void HighlightAsync_IsThreadSafe()
         {
             // Arrange
@@ -74,7 +75,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
     return arg + ""dummyString"";
 }";
             const string dummyLanguageAlias = "csharp";
-            IPrismService prismService = CreatePrismService();
+            IPrismService testSubject = CreatePrismService();
 
             // Act
             var results = new ConcurrentQueue<string>();
@@ -82,7 +83,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             var threads = new List<Thread>();
             for (int i = 0; i < numThreads; i++)
             {
-                var thread = new Thread(() => results.Enqueue(prismService.HighlightAsync(dummyCode, dummyLanguageAlias).GetAwaiter().GetResult()));
+                var thread = new Thread(() => results.Enqueue(testSubject.HighlightAsync(dummyCode, dummyLanguageAlias).GetAwaiter().GetResult()));
                 threads.Add(thread);
                 thread.Start();
             }
@@ -104,15 +105,15 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             }
         }
 
-        [Theory]
+        [Theory(Timeout = _timeoutMS)]
         [MemberData(nameof(IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid_Data))]
         public async Task IsValidLanguageAliasAsync_ChecksIfLanguageAliasIsValid(string dummyLanguageAlias, bool expectedResult)
         {
             // Arrange
-            IPrismService prismService = CreatePrismService();
+            IPrismService testSubject = CreatePrismService();
 
             // Act
-            bool result = await prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
+            bool result = await testSubject.IsValidLanguageAliasAsync(dummyLanguageAlias).ConfigureAwait(false);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -142,12 +143,12 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        [Fact]
+        [Fact(Timeout = _timeoutMS)]
         public void IsValidLanguageAliasAsync_IsThreadSafe()
         {
             // Arrange
             const string dummyLanguageAlias = "csharp";
-            IPrismService prismService = CreatePrismService();
+            IPrismService testSubject = CreatePrismService();
 
             // Act
             var results = new ConcurrentQueue<bool>();
@@ -155,7 +156,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             var threads = new List<Thread>();
             for (int i = 0; i < numThreads; i++)
             {
-                var thread = new Thread(() => results.Enqueue(prismService.IsValidLanguageAliasAsync(dummyLanguageAlias).GetAwaiter().GetResult()));
+                var thread = new Thread(() => results.Enqueue(testSubject.IsValidLanguageAliasAsync(dummyLanguageAlias).GetAwaiter().GetResult()));
                 threads.Add(thread);
                 thread.Start();
             }

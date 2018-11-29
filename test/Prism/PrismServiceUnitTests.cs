@@ -14,6 +14,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
     public class PrismServiceUnitTests
     {
         private readonly MockRepository _mockRepository = new MockRepository(MockBehavior.Default) { DefaultValue = DefaultValue.Mock };
+        private const int _timeoutMS = 60000;
 
         [Fact]
         public void Constructor_ThrowsArgumentNullExceptionIfNodeJSServiceIsNull()
@@ -212,7 +213,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        [Theory]
+        [Theory(Timeout = _timeoutMS)]
         [MemberData(nameof(IsValidLanguageAliasAsync_IfSuccessfulReturnsTrueIfAliasesContainsLanguageAliasAndFalseIfItDoesNot_Data))]
         public async Task IsValidLanguageAliasAsync_IfSuccessfulReturnsTrueIfAliasesContainsLanguageAliasAndFalseIfItDoesNot(
             string dummyLanguageAlias,
@@ -267,7 +268,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             };
         }
 
-        [Fact]
+        [Fact(Timeout = _timeoutMS)]
         public void IsValidLanguageAliasAsync_FirstThreadLazilyRetrievesAliases()
         {
             // Arrange
