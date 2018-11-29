@@ -8,6 +8,8 @@ for an overview of semantic versioning.
 ## [4.0.1](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.0.0...4.0.1) - Nov 29, 2018
 ### Fixes
 - Fixed inaccurate Nuget package metadata.
+### Changes
+- Bumped `Jering.Javascript.NodeJS` to 4.0.3.
 
 ## [4.0.0](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/3.2.0...4.0.0) - Nov 28, 2018
 ### Additions
