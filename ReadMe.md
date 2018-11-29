@@ -18,9 +18,8 @@
 [About](#about)
 
 ## Overview
-Jering.Web.SyntaxHighlighters.Prism enables you to perform syntax highlighting from C# projects using the [Prism](https://github.com/PrismJS/prism) library.  
-
-This library provides a dependency injection (DI) base API and a static API. Here is an example usage of the static API:
+Jering.Web.SyntaxHighlighters.Prism enables you to perform syntax highlighting from C# projects using [Prism](https://github.com/PrismJS/prism).
+Here is an example usage of this library:
 
 ```csharp
 string code = @"public string ExampleFunction(string arg)
@@ -32,14 +31,14 @@ string code = @"public string ExampleFunction(string arg)
 // Highlight code
 string result = await StaticPrismService.HighlightAsync(code, "csharp");
 
-// result == syntax highlighted code
-string expectedResult = @"<span class=""token keyword"">public</span> <span class=""token keyword"">string</span> <span class=""token function"">ExampleFunction</span><span class=""token punctuation"">(</span><span class=""token keyword"">string</span> arg<span class=""token punctuation"">)</span>
+string syntaxHighlightedCode = @"<span class=""token keyword"">public</span> <span class=""token keyword"">string</span> <span class=""token function"">ExampleFunction</span><span class=""token punctuation"">(</span><span class=""token keyword"">string</span> arg<span class=""token punctuation"">)</span>
 <span class=""token punctuation"">{</span>
     <span class=""token comment"">// Example comment</span>
     <span class=""token keyword"">return</span> arg <span class=""token operator"">+</span> <span class=""token string"">""dummyString""</span><span class=""token punctuation"">;</span>
 <span class=""token punctuation"">}</span>";
 
-Assert.Equal(expectedResult, result);
+// result == syntax highlighted code
+Assert.Equal(syntaxHighlightedCode, result);
 ```
 
 ## Target Frameworks
