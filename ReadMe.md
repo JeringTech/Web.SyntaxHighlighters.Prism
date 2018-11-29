@@ -186,7 +186,7 @@ string highlightedCode = await prismService.HighlightAsync(code, "csharp");
 ### IPrismService.IsValidLanguageAliasAsync
 #### Signature
 ```csharp
-ValueTask<bool> IsValidLanguageAliasAsync(string languageAlias)
+Task<bool> IsValidLanguageAliasAsync(string languageAlias, CancellationToken cancellationToken = default)
 ```
 #### Description
 Determines whether a language alias is valid.
