@@ -1,3 +1,7 @@
+# Third Party Licenses
+
+## [Prism](https://prismjs.com/)
+
 MIT LICENSE
 
 Copyright (c) 2012 Lea Verou
