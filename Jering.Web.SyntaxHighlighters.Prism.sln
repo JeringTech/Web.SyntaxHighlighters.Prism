@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Jering.Web.SyntaxHighlighters.Prism.ruleset = Jering.Web.SyntaxHighlighters.Prism.ruleset
 		License.txt = License.txt
 		ReadMe.md = ReadMe.md
-		ThirdPartyLicenses.txt = ThirdPartyLicenses.txt
+		ThirdPartyLicenses.md = ThirdPartyLicenses.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jering.Web.SyntaxHighlighters.Prism.Tests", "test\Prism\Jering.Web.SyntaxHighlighters.Prism.Tests.csproj", "{81755492-9F44-4590-B936-526AD445F9EC}"
