@@ -11,31 +11,50 @@ namespace Jering.Web.SyntaxHighlighters.Prism
     /// </summary>
     public static class StaticPrismService
     {
-        private static IServiceCollection _services;
-        private static ServiceProvider _serviceProvider;
-        private static IPrismService _PrismService;
+        private static volatile ServiceProvider _serviceProvider;
+        private static volatile IServiceCollection _services;
+        private static volatile IPrismService _prismService;
+        private static readonly object _createLock = new object();
 
         private static IPrismService GetOrCreatePrismService()
         {
-            if (_PrismService != null && _services == null)
+            if (_prismService == null || _services != null)
             {
-                // PrismService already exists and no configuration pending
-                return _PrismService;
+                lock (_createLock)
+                {
+                    if (_prismService == null || _services != null)
+                    {
+                        // Dispose of service provider
+                        _serviceProvider?.Dispose();
+
+                        // Create new service provider
+                        (_services ?? (_services = new ServiceCollection())).AddPrism();
+                        _serviceProvider = _services.BuildServiceProvider();
+                        _services = null;
+
+                        _prismService = _serviceProvider.GetRequiredService<IPrismService>();
+                    }
+                }
             }
 
-            // Dispose of service provider
-            _serviceProvider?.Dispose();
-
-            // Create new service provider
-            (_services ?? (_services = new ServiceCollection())).AddPrism();
-            _serviceProvider = _services.BuildServiceProvider();
-            _services = null;
-
-            return _PrismService = _serviceProvider.GetRequiredService<IPrismService>();
+            // PrismService already exists and no configuration pending
+            return _prismService;
         }
 
         /// <summary>
-        /// Configures options.
+        /// <para>Disposes the underlying <see cref="IServiceProvider"/> used to resolve <see cref="IPrismService"/>.</para>
+        /// <para>This method is not thread safe.</para>
+        /// </summary>
+        public static void DisposeServiceProvider()
+        {
+            _serviceProvider?.Dispose();
+            _serviceProvider = null;
+            _prismService = null;
+        }
+
+        /// <summary>
+        /// <para>Configures options.</para>
+        /// <para>This method is not thread safe.</para>
         /// </summary>
         /// <typeparam name="T">The type of options to configure.</typeparam>
         /// <param name="configureOptions">The action that configures the options.</param>
