@@ -1,6 +1,6 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). Refer to 
-[The Semantic Versioning Lifecycle](https://www.JeringTech.com/articles/the-semantic-versioning-lifecycle)
+[The Semantic Versioning Lifecycle](https://www.jering.tech/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
 ## [Unreleased](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.1.0...HEAD)
@@ -13,13 +13,13 @@ for an overview of semantic versioning.
 
 ## [4.0.2](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.0.1...4.0.2) - Nov 30, 2018
 ### Changes
-- Changed project URL from `jering.tech/utilities/web.syntaxhighlighters.prism` to `jering.tech/utilities/jering.web.syntaxhighlighters.prism` for consistency with other Jering projects.
+- Changed project URL (used by NuGet.Org) from `jering.tech/utilities/web.syntaxhighlighters.prism` to `jering.tech/utilities/jering.web.syntaxhighlighters.prism` for consistency with other Jering projects.
 
 ## [4.0.1](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.0.0...4.0.1) - Nov 29, 2018
-### Fixes
-- Fixed inaccurate Nuget package metadata.
 ### Changes
 - Bumped `Jering.Javascript.NodeJS` to 4.0.3.
+### Fixes
+- Fixed inaccurate Nuget package metadata.
 
 ## [4.0.0](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/3.2.0...4.0.0) - Nov 28, 2018
 ### Additions
@@ -45,12 +45,12 @@ namespace `Jering.Web.SyntaxHighlighters.Prism` instead of `Jering.WebUtils.Synt
 - Added .NET Standard 1.3 as a target framework.
 
 ## [2.1.0](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/2.0.3...2.1.0) - Jul 24, 2018
+### Additions
+- Added XML comments in Nuget package.
 ### Changes
 - Replaced [Microsoft.AspNetCore.NodeServices](https://github.com/aspnet/JavaScriptServices/tree/master/src/Microsoft.AspNetCore.NodeServices) with 
   [JavascriptUtils.NodeJS](https://github.com/JeringTech/JavascriptUtils.NodeJS) for IPC with Node.js.
 - Renamed assembly to Jering.WebUtils.SyntaxHighlighters.Prism.
-### Additions
-- Added XML comments in Nuget package.
 
 ## [2.0.3](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/2.0.2...2.0.3) - Jul 3, 2018
 ### Fixes
