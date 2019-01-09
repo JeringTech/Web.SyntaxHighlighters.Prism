@@ -13,7 +13,7 @@ for an overview of semantic versioning.
 
 ## [4.0.2](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.0.1...4.0.2) - Nov 30, 2018
 ### Changes
-- Changed project URL (used by NuGet.Org) from `jering.tech/utilities/web.syntaxhighlighters.prism` to `jering.tech/utilities/jering.web.syntaxhighlighters.prism` for consistency with other Jering projects.
+- Changed project URL (used by NuGet.org) from `jering.tech/utilities/web.syntaxhighlighters.prism` to `jering.tech/utilities/jering.web.syntaxhighlighters.prism` for consistency with other Jering projects.
 
 ## [4.0.1](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.0.0...4.0.1) - Nov 29, 2018
 ### Changes

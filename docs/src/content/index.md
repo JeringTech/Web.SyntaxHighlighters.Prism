@@ -5,7 +5,7 @@ mimo_pageID: home
 mimo_isDisplay: true
 mimo_fbCardType: website
 mimo_cardTitle: Jering.Web.SyntaxHighlighters.Prism
-mimo_cardDescription: Documentation Jering.Web.SyntaxHighlighters.Prism.
+mimo_cardDescription: Documentation for Jering.Web.SyntaxHighlighters.Prism.
 mimo_unneededFontPreloads:
   - /resources/ibm-plex-mono-v3-latin-regular.woff2
 ---
