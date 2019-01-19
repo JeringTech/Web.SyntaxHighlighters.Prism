@@ -9,7 +9,7 @@ for an overview of semantic versioning.
 ### Changes
 - Bumped `Jering.Javascript.NodeJS` to `4.1.1`.
 ### Fixes
-- Fixed `StaticPrismService` concurrency issue. 
+- Fixed `StaticPrismService` concurrency issue. ([4e7b872](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/pull/8/commits/4e7b8724dfc105642c06832b50770e3db584b994))
 - Fixed NuGet package's `PackageLicenseUrl` metadata.
 
 ## [4.1.0](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.0.2...4.1.0) - Dec 3, 2018
