@@ -30,9 +30,10 @@ namespace Jering.Web.SyntaxHighlighters.Prism
                         // Create new service provider
                         (_services ?? (_services = new ServiceCollection())).AddPrism();
                         _serviceProvider = _services.BuildServiceProvider();
-                        _services = null;
-
                         _prismService = _serviceProvider.GetRequiredService<IPrismService>();
+
+                        // Only set to null after new _prismService is initialized, otherwise another thread might skip the lock and try to use the old _prismService
+                        _services = null;
                     }
                 }
             }

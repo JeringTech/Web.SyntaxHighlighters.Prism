@@ -9,7 +9,7 @@
         <Copyright>© 2018 Jering. All rights reserved.</Copyright>
         <PackageProjectUrl>https://www.jering.tech/utilities/jering.web.syntaxhighlighters.prism/index</PackageProjectUrl>
         <RepositoryUrl>https://github.com/JeringTech/Web.SyntaxHighlighters.Prism</RepositoryUrl>
-        <PackageLicenseUrl>$(RepositoryUrl)/blob/master/License.txt</PackageLicenseUrl>
+        <PackageLicenseUrl>$(RepositoryUrl)/blob/master/License.md</PackageLicenseUrl>
         <PackageReleaseNotes>$(RepositoryUrl)/blob/master/Changelog.md</PackageReleaseNotes>
         <PackageTags>syntax highlighter</PackageTags>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -34,7 +34,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Jering.Javascript.NodeJS" Version="4.1.0" />
+        <PackageReference Include="Jering.Javascript.NodeJS" Version="4.1.1" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
