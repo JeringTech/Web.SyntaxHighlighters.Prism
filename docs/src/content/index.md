@@ -1,11 +1,12 @@
 ---
-mimo_pageDescription: Jering.Web.SyntaxHighlighters.Prism is a Nuget package that allows you to use the syntax highlighter, Prism from C#.
+mimo_pageDescription: Jering.Web.SyntaxHighlighters.Prism enables you to perform syntax highlighting from C# projects using Prism.
 mimo_pageTitle: Home
 mimo_pageID: home
 mimo_isDisplay: true
-mimo_fbCardType: website
+mimo_ogType: website
 mimo_cardTitle: Jering.Web.SyntaxHighlighters.Prism
-mimo_cardDescription: Documentation for Jering.Web.SyntaxHighlighters.Prism.
+mimo_twitterCardType: summary_large_image
+mimo_twitterCardImageRelPath: /resources/logo_wide.png
 mimo_unneededFontPreloads:
   - /resources/ibm-plex-mono-v3-latin-regular.woff2
 ---
