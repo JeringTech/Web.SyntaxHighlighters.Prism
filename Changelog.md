@@ -3,9 +3,13 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.1.1...HEAD)
+## [Unreleased](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.2.1...HEAD)
 
-## [4.1.1](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.1.0...4.1.1) - Jan 19, 2018
+## [4.2.1](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.1.1...4.2.1) - Apr 10, 2019
+### Changes
+- Bumped some dependencies. ([4a077bf](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/pull/9/commits/4a077bfeeb3ad3143972fd7367ed39078530af6d))
+
+## [4.1.1](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.1.0...4.1.1) - Jan 19, 2019
 ### Changes
 - Bumped `Jering.Javascript.NodeJS` to `4.1.1`.
 ### Fixes
