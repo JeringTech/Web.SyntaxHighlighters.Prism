@@ -43,7 +43,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
     return arg + 'dummyString';
 }",
                     "javascript",
-                    @"<span class=""token keyword"">function</span> <span class=""token function"">exampleFunction</span><span class=""token punctuation"">(</span>arg<span class=""token punctuation"">)</span> <span class=""token punctuation"">{</span>
+                    @"<span class=""token keyword"">function</span> <span class=""token function"">exampleFunction</span><span class=""token punctuation"">(</span><span class=""token parameter"">arg</span><span class=""token punctuation"">)</span> <span class=""token punctuation"">{</span>
     <span class=""token comment"">// Example comment</span>
     <span class=""token keyword"">return</span> arg <span class=""token operator"">+</span> <span class=""token string"">'dummyString'</span><span class=""token punctuation"">;</span>
 <span class=""token punctuation"">}</span>"
