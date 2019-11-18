@@ -34,22 +34,22 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Jering.Javascript.NodeJS" Version="4.2.2" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63127-02">
+        <PackageReference Include="Jering.Javascript.NodeJS" Version="4.3.0" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19554-01">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
-        <PackageReference Include="Roslynator.Analyzers" Version="2.0.0" PrivateAssets="all" ExcludeAssets="Runtime">
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
+        <PackageReference Include="Roslynator.Analyzers" Version="2.2.0" PrivateAssets="all" ExcludeAssets="Runtime">
           <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Roslynator.CodeFixes" Version="2.0.0" PrivateAssets="all" ExcludeAssets="Runtime">
           <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Yarn.MSBuild" Version="1.13.0" PrivateAssets="all" ExcludeAssets="Runtime">
+        <PackageReference Include="Yarn.MSBuild" Version="1.16.0" PrivateAssets="all" ExcludeAssets="Runtime">
           <IncludeAssets>compile; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
     </ItemGroup>
 
     <ItemGroup>
