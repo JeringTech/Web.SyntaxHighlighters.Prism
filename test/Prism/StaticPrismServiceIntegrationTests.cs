@@ -1,4 +1,4 @@
-﻿using Jering.Javascript.NodeJS;
+using Jering.Javascript.NodeJS;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;

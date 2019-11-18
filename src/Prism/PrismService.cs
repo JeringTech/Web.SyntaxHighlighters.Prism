@@ -1,4 +1,4 @@
-﻿using Jering.Javascript.NodeJS;
+using Jering.Javascript.NodeJS;
 using System;
 using System.Collections.Generic;
 using System.IO;

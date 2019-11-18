@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Running;
 
 namespace Jering.Web.SyntaxHighlighters.Prism.Performance
 {

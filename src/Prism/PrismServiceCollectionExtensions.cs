@@ -1,4 +1,4 @@
-﻿using Jering.Javascript.NodeJS;
+using Jering.Javascript.NodeJS;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
