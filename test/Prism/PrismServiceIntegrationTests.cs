@@ -14,6 +14,8 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
     {
         private IServiceProvider _serviceProvider;
         private const int _timeoutMS = 60000;
+        // Set to true to break in NodeJS (see CreateHttpNodeJSService)
+        private const bool _debugNodeJS = false;
 
         [Theory(Timeout = _timeoutMS)]
         [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
@@ -178,7 +180,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             var services = new ServiceCollection();
 
             services.AddPrism();
-            if (Debugger.IsAttached)
+            if (Debugger.IsAttached && _debugNodeJS)
             {
                 services.Configure<NodeJSProcessOptions>(options => options.NodeAndV8Options = "--inspect-brk");
                 services.Configure<OutOfProcessNodeJSServiceOptions>(options => options.TimeoutMS = -1);
