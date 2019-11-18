@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 

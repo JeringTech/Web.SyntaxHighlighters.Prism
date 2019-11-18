@@ -9,17 +9,19 @@
 [Target Frameworks](#target-frameworks)  
 [Prerequisites](#prerequisites)  
 [Installation](#installation)  
-[Concepts](#concepts)  
 [Usage](#usage)  
 [API](#api)  
-[Building](#building)  
-[Related Projects](#related-projects)  
+[Building and Testing](#building-and-testing)  
+[Related Jering Projects](#related-jering-projects)  
+[Related Concepts](#related-concepts)  
 [Contributing](#contributing)  
 [About](#about)
 
 ## Overview
 Jering.Web.SyntaxHighlighters.Prism enables you to perform syntax highlighting from C# projects using [Prism](https://github.com/PrismJS/prism).
-Here is an example usage of this library:
+This library is built to be flexible; you can use a dependency injection (DI) based API or a static API.
+
+Here is an example of syntax highlighting using the static API:
 
 ```csharp
 string code = @"public string ExampleFunction(string arg)
@@ -41,12 +43,39 @@ string syntaxHighlightedCode = @"<span class=""token keyword"">public</span> <sp
 Assert.Equal(syntaxHighlightedCode, result);
 ```
 
+And here is an example of syntax highlighting using the DI based API:
+
+```csharp
+string code = @"public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + ""dummyString"";
+}";
+
+// Highlight code
+var services = new ServiceCollection();
+services.AddPrism();
+ServiceProvider serviceProvider = services.BuildServiceProvider();
+IPrismService prismService = serviceProvider.GetRequiredService<IPrismService>();
+string result = await prismService.HighlightAsync(code, "csharp");
+
+string syntaxHighlightedCode = @"<span class=""token keyword"">public</span> <span class=""token keyword"">string</span> <span class=""token function"">ExampleFunction</span><span class=""token punctuation"">(</span><span class=""token keyword"">string</span> arg<span class=""token punctuation"">)</span>
+<span class=""token punctuation"">{</span>
+    <span class=""token comment"">// Example comment</span>
+    <span class=""token keyword"">return</span> arg <span class=""token operator"">+</span> <span class=""token string"">""dummyString""</span><span class=""token punctuation"">;</span>
+<span class=""token punctuation"">}</span>";
+
+// result == syntax highlighted code
+Assert.Equal(syntaxHighlightedCode, result);
+```
+
 ## Target Frameworks
 - .NET Standard 2.0
 - .NET Framework 4.6.1
  
 ## Prerequisites
-[NodeJS](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable.
+[NodeJS](https://nodejs.org/en/) must be installed and node.exe's directory must be added to the `Path` environment variable. This library has been
+tested with NodeJS 10.5.2 - 12.13.0.
 
 ## Installation
 Using Package Manager:
@@ -57,35 +86,6 @@ Using .Net CLI:
 ```
 > dotnet add package Jering.Web.SyntaxHighlighters.Prism
 ```
-
-## Concepts
-### What is a Syntax Highlighter?
-Syntax highlighters add markup to code to facilitate styling. For example, the following code:
-
-```csharp
-public string ExampleFunction(string arg)
-{
-    // Example comment
-    return arg + "dummyString";
-}
-```
-
-is transformed into the following markup by the syntax highlighter Prism:
-
-```html
-<span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
-<span class="token punctuation">{</span>
-    <span class="token comment">// Example comment</span>
-    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-```
-
-Prism is a a javascript library, which is ideal since syntax highlighting is often done client-side. There are however, situations where syntax highlighting can't or shouldn't be done client-side, for example:
-- When generating [AMP](https://www.ampproject.org/) pages, since AMP pages cannot run scripts.
-- When page load time is critical.
-- When page size is critical.
-
-This library allows syntax highlighting to be done by .Net server-side applications and tools like static site generators.
 
 ## Usage
 ### Creating IPrismService
@@ -130,7 +130,7 @@ string result = await StaticPrismService.HighlightAsync(code, "csharp");
 The following section on using `IPrismService` applies to usage of `StaticPrismService`.
 
 ### Using IPrismService
-Code can be highlighted using [`IPrismService.HighlightAsync`](#iprismservice.highlightasync):
+Code can be highlighted using [`IPrismService.HighlightAsync`](#iprismservicehighlightasync):
 ```csharp
 string code = @"public string ExampleFunction(string arg)
 {
@@ -211,8 +211,8 @@ Determines whether a language alias is valid.
 bool isValid = await prismService.IsValidLanguageAliasAsync("csharp");
 ```
 
-## Building
-This project can be built using Visual Studio 2017.
+## Building and Testing
+You can build and test this project in Visual Studio 2017/2019.
 
 ## Related Jering Projects
 #### Similar Projects
@@ -221,6 +221,36 @@ This project can be built using Visual Studio 2017.
 [Jering.Markdig.Extensions.FlexiBlocks](https://github.com/JeringTech/Markdig.Extensions.FlexiBlocks) - A Collection of Flexible Markdig Extensions.
 #### Projects this Library Uses
 [Jering.Javascript.NodeJS](https://github.com/JeringTech/Javascript.NodeJS) - Invoke Javascript in NodeJS, from C#.
+
+## Related Concepts
+### What is a Syntax Highlighter?
+Syntax highlighters add markup to code to facilitate styling. For example, the following code:
+
+```csharp
+public string ExampleFunction(string arg)
+{
+    // Example comment
+    return arg + "dummyString";
+}
+```
+
+is transformed into the following markup by the syntax highlighter Prism:
+
+```html
+<span class="token keyword">public</span> <span class="token keyword">string</span> <span class="token function">ExampleFunction</span><span class="token punctuation">(</span><span class="token keyword">string</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Example comment</span>
+    <span class="token keyword">return</span> arg <span class="token operator">+</span> <span class="token string">"dummyString"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+```
+
+Prism is a a javascript library, which is ideal since syntax highlighting is often done client-side. There are however, situations where syntax highlighting can't or shouldn't be done client-side, for example:
+- When generating [AMP](https://www.ampproject.org/) pages, since AMP pages cannot run scripts.
+- When page load time is critical.
+- When page size is critical.
+
+This library allows syntax highlighting to be done by .Net server-side applications and tools like static site generators.
+
 
 ## Contributing
 Contributions are welcome!  

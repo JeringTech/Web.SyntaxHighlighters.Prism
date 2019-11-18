@@ -1,4 +1,4 @@
-﻿# Licenses
+# Licenses
 Jering.Web.SyntaxHighlighters.Prism, copyright © 2018-2019 Jering. All rights reserved.
 
 ## Source Code and Documentation Code-Examples

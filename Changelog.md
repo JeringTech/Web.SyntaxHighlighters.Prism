@@ -3,7 +3,12 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.2.1...HEAD)
+## [Unreleased](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.3.0...HEAD)
+
+## [4.3.0](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.2.1...4.3.0) - Nov 18, 2019
+### Changes
+- Bumped Prism to 1.17.1. ([2d7252d](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/commit/2d7252df6a3125337481a332efe7000b32281bec))
+- Bumped NuGet dependencies. ([d6fc982](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/commit/d6fc982c4652c679510d5db2fa8f2623a013f689))
 
 ## [4.2.1](https://github.com/JeringTech/Web.SyntaxHighlighters.Prism/compare/4.1.1...4.2.1) - Apr 10, 2019
 ### Changes

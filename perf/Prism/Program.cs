@@ -1,10 +1,10 @@
-﻿using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Running;
 
 namespace Jering.Web.SyntaxHighlighters.Prism.Performance
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             BenchmarkRunner.Run<Benchmarks>();
         }

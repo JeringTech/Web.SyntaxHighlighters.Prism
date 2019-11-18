@@ -1,4 +1,4 @@
-﻿---
+---
 mimo_pageDescription: Licenses for Jering.Web.SyntaxHighlighters.Prism.
 mimo_pageTitle: Licenses
 mimo_pageID: licenses

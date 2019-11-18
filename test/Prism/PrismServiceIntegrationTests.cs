@@ -1,4 +1,4 @@
-﻿using Jering.Javascript.NodeJS;
+using Jering.Javascript.NodeJS;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Concurrent;
@@ -14,6 +14,8 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
     {
         private IServiceProvider _serviceProvider;
         private const int _timeoutMS = 60000;
+        // Set to true to break in NodeJS (see CreateHttpNodeJSService)
+        private const bool _debugNodeJS = false;
 
         [Theory(Timeout = _timeoutMS)]
         [MemberData(nameof(HighlightAsync_HighlightsCode_Data))]
@@ -41,7 +43,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
     return arg + 'dummyString';
 }",
                     "javascript",
-                    @"<span class=""token keyword"">function</span> <span class=""token function"">exampleFunction</span><span class=""token punctuation"">(</span>arg<span class=""token punctuation"">)</span> <span class=""token punctuation"">{</span>
+                    @"<span class=""token keyword"">function</span> <span class=""token function"">exampleFunction</span><span class=""token punctuation"">(</span><span class=""token parameter"">arg</span><span class=""token punctuation"">)</span> <span class=""token punctuation"">{</span>
     <span class=""token comment"">// Example comment</span>
     <span class=""token keyword"">return</span> arg <span class=""token operator"">+</span> <span class=""token string"">'dummyString'</span><span class=""token punctuation"">;</span>
 <span class=""token punctuation"">}</span>"
@@ -178,7 +180,7 @@ namespace Jering.Web.SyntaxHighlighters.Prism.Tests
             var services = new ServiceCollection();
 
             services.AddPrism();
-            if (Debugger.IsAttached)
+            if (Debugger.IsAttached && _debugNodeJS)
             {
                 services.Configure<NodeJSProcessOptions>(options => options.NodeAndV8Options = "--inspect-brk");
                 services.Configure<OutOfProcessNodeJSServiceOptions>(options => options.TimeoutMS = -1);

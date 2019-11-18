@@ -1,4 +1,4 @@
-﻿var Prism = require('prismjs');
+var Prism = require('prismjs');
 var components = require('prismjs/components.js');
 
 // Get all language names for use in getAliases
