@@ -2,11 +2,12 @@
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+        <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netstandard2.0</TargetFrameworks>
         <PackageId>Jering.Web.SyntaxHighlighters.Prism</PackageId>
         <Authors>JeremyTCD</Authors>
         <Title>Use the Syntax Highlighter, Prism, from C#</Title>
         <Description>Jering.Web.SyntaxHighlighters.Prism enables you to perform syntax highlighting from C# projects using Prism.</Description>
-        <Copyright>© 2018 Jering. All rights reserved.</Copyright>
+        <Copyright>© 2018-2019 Jering. All rights reserved.</Copyright>
         <PackageProjectUrl>https://www.jering.tech/utilities/jering.web.syntaxhighlighters.prism/index</PackageProjectUrl>
         <RepositoryUrl>https://github.com/JeringTech/Web.SyntaxHighlighters.Prism</RepositoryUrl>
         <PackageLicenseUrl>$(RepositoryUrl)/blob/master/License.md</PackageLicenseUrl>
